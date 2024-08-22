@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>貸出一覧</title>
+  </head>
+
+  <body>
+    <header th:replace="~{common/header}">Header</header>
+    <h1>貸出一覧</h1>
+	
+	<table>
+	      <tr>
+	        <th>資産番号</th>
+	        <th>社員番号</th>
+	        <th>社員名</th>
+	        <th>貸出日</th>
+	        <th>返却予定日</th>
+	      </tr>
+		  <tr th:each = "rental : ${rentals}">
+			<td th:text="${rental.serial_number}"></td>
+			<td th:text="${rental.employee_no}"></td>
+			<td th:text="${rental.employee_name}"></td>
+			<td th:text="${rental.rental_date}"></td>
+			<td th:text="${rental.return_date}"></td>
+		  </tr>
+		  
+		</table>
+  </body>
+</html>

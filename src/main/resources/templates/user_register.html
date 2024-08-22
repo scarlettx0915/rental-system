@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>社員登録</title>
+  </head>
+
+  <body>
+    <header th:replace="~{common/header}">Header</header>
+    <h1>社員登録</h1>
+
+    <form th:action="@{/addUser}" th:object="${userForm}" method="post">
+      <div class="form-label-group">
+        <label for="employee_no">社員番号</label>
+        <input
+          type="text"
+          id="employee_no"
+          name="employee_no"
+          class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="name">氏名</label>
+        <input type="text" id="name" name="name" class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="name_kana">氏名（カタカナ）</label>
+        <input
+          type="text"
+          id="name_kana"
+          name="name_kana"
+          class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="department">所属部署</label>
+        <input
+          type="text"
+          id="department"
+          name="department"
+          class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="tel_no">電話番号</label>
+        <input type="text" id="tel_no" name="tel_no" class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="mail_address">メールアドレス</label>
+        <input
+          type="text"
+          id="mail_address"
+          name="mail_address"
+          class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="age">年齢</label>
+        <input type="text" id="age" name="age" class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="gender">性別:</label>
+        <input type="radio" id="radioA" name="gender" value="0" />
+        <label for="radioA">男</label>
+        <input type="radio" id="radioB" name="gender" value="1" />
+        <label for="radioB">女</label>
+      </div>
+
+      <div class="form-label-group">
+        <label for="position">役職</label>
+        <input type="text" id="position" name="position" class="form-control" />
+      </div>
+
+      <div class="form-label-group">
+        <label for="account_level">権限レベル</label>
+          <input type="radio" id="radioA" name="account_level" value="管理者" />
+          <label for="radioA">管理者</label>
+          <input type="radio" id="radioB" name="account_level" value="利用者" />
+          <label for="radioB">利用者</label>
+        </div>
+      </div>
+
+      <p>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
+  </body>
+</html>

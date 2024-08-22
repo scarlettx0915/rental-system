@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>機器登録</title>
+  </head>
+
+  <body>
+    <header th:replace="~{common/header}">Header</header>
+    <h1>機器登録</h1>
+
+    <form action="addDevice" method="post">
+      <div class="form-label-group">
+        <label for="serial_number">資産番号</label>
+        <input type="text" id="" name="serial_number" class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="maker">メーカー</label>
+        <input type="text" id="maker" name="maker" class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="operating_system">OS</label>
+        <input
+          type="text"
+          id="operating_system"
+          name="operating_system"
+          class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="memory">メモリ</label>
+        <select name="memory" id="memory" class="form-control">
+          <option selected value>-- select an option --</option>
+          <option value="4">4GB</option>
+          <option value="8">8GB</option>
+          <option value="16">16GB</option>
+          <option value="32">32GB</option>
+        </select>
+      </div>
+      <div class="form-label-group">
+        <label for="capacity">容量</label>
+        <select name="capacity" id="capacity" class="form-control">
+          <option selected value>-- select an option --</option>
+          <option value="256">256GB</option>
+          <option value="512">512GB</option>
+          <option value="1024">1TB</option>
+          <option value="2048">2TB</option>
+        </select>
+      </div>
+      <div class="form-label-group">
+        <label for="gpu">グラフィックボード</label>
+        <input
+          type="checkbox"
+          id="gpu"
+          name="gpu"
+          class="form-control"
+          th:checked="${gpu}" />
+      </div>
+      <div class="form-label-group">
+        <label for="location">保管場所</label>
+        <input type="text" id="location" name="location" class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="lease_start_date">リース開始日</label>
+        <input
+          type="date"
+          id="lease_start_date"
+          name="lease_start_date"
+          class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="lease_end_date">リース期限日</label>
+        <input
+          type="date"
+          id="lease_end_date"
+          name="lease_end_date"
+          class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="inventory_date">棚卸日</label>
+        <input
+          type="date"
+          id="inventory_date"
+          name="inventory_date"
+          class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="info">備考</label>
+        <input type="text" id="info" name="info" class="form-control" />
+      </div>
+
+      <p>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
+  </body>
+</html>

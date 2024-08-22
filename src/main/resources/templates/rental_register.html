@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>貸出登録</title>
+  </head>
+
+  <body>
+    <header th:replace="~{common/header}">Header</header>
+    <h1>貸出登録</h1>
+
+    <form action="addRental" method="post">
+      <div class="form-label-group">
+        <label for="name">資産番号</label>
+        <span th:text="${serial_number}"></span>
+      </div>
+      <div class="form-label-group">
+        <label for="employee_no">社員番号</label>
+        <select name="employee_no" id="employee_no" class="form-control">
+          <option selected value>-- select an option --</option>
+          <option th:each="user : ${users}" value="${user.employee_no}">
+            <span th:text="${user.employee_no}"></span>
+          </option>
+        </select>
+      </div>
+      <div>
+        <!-- show corresponding employee name -->
+      </div>
+      <div class="form-label-group">
+        <label for="rental_date">貸出日</label>
+        <input
+          type="date"
+          id="rental_date"
+          name="rental_date"
+          class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="return_date">返却予定日</label>
+        <input
+          type="date"
+          id="return_date"
+          name="return_date"
+          class="form-control" />
+      </div>
+      <div class="form-label-group">
+        <label for="info">備考欄</label>
+        <input type="text" id="info" name="info" class="form-control" />
+      </div>
+
+      <p>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
+  </body>
+</html>
