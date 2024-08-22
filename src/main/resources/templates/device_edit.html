@@ -10,11 +10,62 @@
   <header th:replace="~{common/header}">Header</header>
   <h2>機器編集</h2>
 
-  <p>
+  <div>
     資産番号
     <span th:text="${device.serial_number}"></span>
-    
-  </p>
+  </div>
+  <div>
+    メーカー
+    <input type="text" id="maker" name="maker" class="form-control" th:value="${device.maker}">
+  </div>
+  <div>
+    OS
+    <input type="text" id="operating_system" name="operating_system" class="form-control"
+      th:value="${device.operating_system}">
+  </div>
+  <div>
+    メモリ
+    <select name="memory" id="memory" class="form-control">
+      <option value="">-- select an option --</option>
+      <option value="4" th:selected="${device.memory == 4}">4GB</option>
+      <option value="8" th:selected="${device.memory == 8}">8GB</option>
+      <option value="16" th:selected="${device.memory == 16}">16GB</option>
+      <option value="32" th:selected="${device.memory == 32}">32GB</option>
+    </select>
+  </div>
+  <div>
+    容量
+    <select name="capacity" id="capacity" class="form-control">
+      <option selected value>-- select an option --</option>
+      <option value="256" th:selected="${device.capacity == 256}">256GB</option>
+      <option value="512" th:selected="${device.capacity == 512}">512GB</option>
+      <option value="1024" th:selected="${device.capacity == 1024}">1TB</option>
+      <option value="2048" th:selected="${device.capacity == 2048}">2TB</option>
+    </select>
+  </div>
+  <div>
+    グラフィックボード
+    <input type="checkbox" th:checked="${device.gpu}" />
+  </div>
+  <div>
+    保管場所
+    <input type="text" id="location" name="location" class="form-control" th:value="${device.location}">
+  </div>
+  <div>
+    故障中
+    <input type="checkbox" th:checked="${device.malfunction}" />
+  </div>
+  <div>
+    リース開始日
+    <input type="date" id="lease_start_date" name="lease_start_date" class="form-control"
+      th:value="${device.lease_start_date}">
+  </div>
+  <div>
+    リース期限日
+    <input type="date" id="lease_end_date" name="lease_end_date" class="form-control"
+      th:value="${device.lease_end_date}">
+  </div>
+
 </body>
 
 
