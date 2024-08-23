@@ -40,7 +40,7 @@
   </div>
   <div>
     性別
-    <span th:text="${user.gender}"></span>
+    <span th:text="${user.gender == '1' ? '女' : (user.gender == '0' ? '男' : 'Unknown')}"></span>
   </div>
   <div>
     役職
@@ -56,12 +56,18 @@
   </div>
   <div>
     退職日
-    <span th:text="${user.retire_date}"></span>
+    <span th:text="${user.retire_date}" th:hidden="${user.retire_date}=='0000-00-00'"></span>
   </div>
   <div>
     アカウント権限
     <span th:text="${user.account_level}"></span>
   </div>
+  
+  <span>
+      <a th:href="@{/user_edit(id=${user.employee_no})}">
+        <button type="button">編集</button>
+      </a>
+    </span>
 
 </body>
 

@@ -1,6 +1,7 @@
 package sus.project.rentalSystem.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,5 +16,22 @@ public class RentalService {
 	RentalRepository rentalRepository;
 	public List<Rental> findAll(){
 		return rentalRepository.findAll();
+	}
+	
+	public Optional<Rental> findById(String serial_number){
+		return rentalRepository.findById(serial_number);
+	}
+	
+	public void save(String serial_number, String employee_no, String employee_name, String rental_date,
+			String return_date, String info) {
+		Rental rental = new Rental();
+		rental.setSerial_number(serial_number);
+		rental.setEmployee_no(employee_no);
+		rental.setEmployee_name(employee_name);
+		rental.setRental_date(rental_date);
+		rental.setReturn_date(return_date);
+		rental.setInfo(info);
+		rentalRepository.save(rental);
+		
 	};
 }

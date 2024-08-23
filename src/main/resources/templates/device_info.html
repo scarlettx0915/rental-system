@@ -31,10 +31,9 @@
     </p>
     <p>
       グラフィックボード
-      <span th:if="${device.gpu}">
-        <input type="checkbox" checked disabled />
+      <span>
+        <input type="checkbox" disabled th:checked="${device.gpu}" />
       </span>
-      <span th:unless="${device.gpu}"><input type="checkbox" disabled /></span>
     </p>
     <p>
       保管場所
@@ -42,20 +41,14 @@
     </p>
     <p>
       空き
-      <span th:if="${device.available}">
-        <input type="checkbox" checked disabled />
-      </span>
-      <span th:unless="${device.available}">
-        <input type="checkbox" disabled />
+      <span>
+        <input type="checkbox" disabled th:checked="${device.available}" />
       </span>
     </p>
     <p>
       故障中
-      <span th:if="${device.malfunction}">
-        <input type="checkbox" checked disabled />
-      </span>
-      <span th:unless="${device.malfunction}">
-        <input type="checkbox" disabled />
+      <span>
+        <input type="checkbox" disabled th:checked="${device.malfunction}" />
       </span>
     </p>
     <p>

@@ -24,9 +24,9 @@ public class Device {
 	private Boolean gpu;
 	@Column
 	private String location;
-	@Column(insertable = false)
+	@Column(insertable = false, updatable = true)
 	private Boolean available;
-	@Column(insertable = false)
+	@Column(insertable = false, updatable = true)
 	private Boolean malfunction;
 	@Column(nullable = true)
 	private String lease_start_date;
@@ -34,7 +34,7 @@ public class Device {
 	private String lease_end_date;
 	@Column
 	private String info;
-	@Column(nullable = true)
+	@Column(updatable = false, nullable = true)
 	private String register_date;
 	@Column
 	private String update_date;

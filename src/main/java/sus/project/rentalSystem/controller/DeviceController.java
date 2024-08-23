@@ -64,8 +64,43 @@ public class DeviceController {
 			return "device_register";
 		}
 
-		deviceService.save(deviceForm.getSerial_number(), deviceForm.getMaker(), deviceForm.getMemory(), deviceForm.getCapacity(), deviceForm.isGpu(), 
-				deviceForm.getLocation(), deviceForm.getLease_start_date(), deviceForm.getLease_end_date(), deviceForm.getInventory_date(), deviceForm.getInfo());
+		deviceService.save(
+				deviceForm.getSerial_number(), 
+				deviceForm.getMaker(), 
+				deviceForm.getMemory(), 
+				deviceForm.getCapacity(), 
+				deviceForm.isGpu(), 
+				deviceForm.getLocation(), 
+				deviceForm.getLease_start_date(), 
+				deviceForm.getLease_end_date(), 
+				deviceForm.getInventory_date(), 
+				deviceForm.getInfo());
 		return("redirect:device_list");
 	}
+	
+	@PostMapping("editDevice")
+	public String editDevice(@Valid @ModelAttribute DeviceForm deviceForm, BindingResult result) {
+		if(result.hasErrors()) {
+			System.out.println(result.getAllErrors());
+			return "redirect:device_list";
+		}
+		Optional<Device> device = deviceService.findById(deviceForm.getSerial_number());
+		if(device.isPresent()) {
+			deviceService.update(
+					deviceForm.getSerial_number(), 
+					deviceForm.getMaker(), 
+					deviceForm.getMemory(), 
+					deviceForm.getCapacity(), 
+					deviceForm.isGpu(), 
+					deviceForm.getLocation(), 
+					deviceForm.isMalfunction(),
+					deviceForm.getLease_start_date(), 
+					deviceForm.getLease_end_date(), 
+					deviceForm.getInventory_date(), 
+					deviceForm.getInfo());
+			return("redirect:device_list");
+		}
+		return "redirect:device_list";
+	}
+	
 }

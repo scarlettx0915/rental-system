@@ -14,11 +14,12 @@
         <label for="name">資産番号</label>
         <span th:text="${serial_number}"></span>
       </div>
+      <input type="hidden" name="serial_number" th:value="${serial_number}">
       <div class="form-label-group">
         <label for="employee_no">社員番号</label>
         <select name="employee_no" id="employee_no" class="form-control">
           <option selected value>-- select an option --</option>
-          <option th:each="user : ${users}" value="${user.employee_no}">
+          <option th:each="user : ${users}" th:value="${user.employee_no}">
             <span th:text="${user.employee_no}"></span>
           </option>
         </select>

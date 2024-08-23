@@ -30,7 +30,7 @@ public class User {
 	private String position;
 	@Column
 	private String account_level;
-	@Column
+	@Column(nullable = true)
 	private String retire_date;
 	@Column
 	private String register_date;

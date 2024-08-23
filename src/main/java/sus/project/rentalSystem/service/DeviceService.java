@@ -38,4 +38,26 @@ public class DeviceService {
 		device.setRegister_date(LocalDate.now().toString());
 		deviceRepository.save(device);
 	}
+	
+	public void update(String serial_number, String maker, Integer memory, Integer capacity, Boolean gpu, String location, Boolean malfunction, String lease_start_date, String lease_end_date, String inventory_date, String info) {
+		
+		Optional<Device> optionalDevice = this.findById(serial_number);
+		if(optionalDevice.isPresent()) {
+			Device device = optionalDevice.get();			
+			device.setMaker(maker);
+			device.setMemory(memory);
+			device.setCapacity(capacity);
+			device.setGpu(gpu);
+			device.setLocation(location);
+			device.setMalfunction(malfunction);
+			device.setLease_start_date(Optional.ofNullable(lease_start_date).filter(s -> !s.isEmpty()).orElse(null));
+			device.setLease_end_date(Optional.ofNullable(lease_end_date).filter(s -> !s.isEmpty()).orElse(null));
+			device.setInventory_date(Optional.ofNullable(inventory_date).filter(s -> !s.isEmpty()).orElse(null));
+			device.setInfo(info);
+			device.setUpdate_date(LocalDate.now().toString());
+			deviceRepository.save(device);
+		}
+		
+		
+	}
 }

@@ -42,4 +42,28 @@ public class UserService {
 		return userRepository.findById(employee_no);
 	}
 
+
+	public void update(String employee_no, String name, String name_kana, String department, String tel_no, String mail_address,
+			Integer age, String gender, String position, String account_level, String retire_date) {
+		
+		Optional<User> optionalUser = this.findById(employee_no);
+		if(optionalUser.isPresent()) {
+			User user = optionalUser.get();
+			user.setName(name);
+			user.setEmployee_no(employee_no);
+			user.setName_kana(name_kana);
+			user.setDepartment(department);
+			user.setTel_no(tel_no);
+			user.setMail_address(mail_address);
+			user.setAge(age);
+			user.setGender(gender);
+			user.setPosition(position);
+			user.setAccount_level(account_level);
+			user.setRetire_date(Optional.ofNullable(retire_date).filter(s -> !s.isEmpty()).orElse(null));
+			user.setUpdate_date(LocalDate.now().toString());
+			
+			userRepository.save(user);
+		}
+	}
+
 }
