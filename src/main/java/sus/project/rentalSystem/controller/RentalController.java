@@ -43,7 +43,7 @@ public class RentalController {
 	@GetMapping("/rental_register")
 	public String rental_register(@RequestParam("id")String id, Model model) {
 		model.addAttribute("serial_number",id);
-		model.addAttribute("users", userService.findAll());
+		model.addAttribute("users", userService.findAll(true));
 		return "rental_register";
 	}
 	

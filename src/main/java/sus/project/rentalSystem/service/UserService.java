@@ -15,10 +15,12 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public List<User> findAll(){
+	public List<User> findAll(boolean hide_deleted){
+		if(hide_deleted) {
+			return userRepository.findAllActiveUsers();
+		}
 		return userRepository.findAll();
 	};
-	
 	
 	public void save(String employee_no, String name, String name_kana, String department, String tel_no, String mail_address, Integer age, String gender, String position, String account_level) {
 		User user = new User();
@@ -66,4 +68,13 @@ public class UserService {
 		}
 	}
 
+
+	public void delete(String employee_no) {
+		Optional<User> optionalUser = this.findById(employee_no);
+		if(optionalUser.isPresent()) {
+			User user = optionalUser.get();
+			user.setDelete_flag(true);
+			userRepository.save(user);
+		}
+	}
 }

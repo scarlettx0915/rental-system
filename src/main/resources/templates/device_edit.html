@@ -16,10 +16,10 @@
           name="serial_number"
           class="form-control"
           th:text="${device.serial_number}"></span>
-          <input
-        type="hidden"
-        name="serial_number"
-        th:value="${device.serial_number}" />
+        <input
+          type="hidden"
+          name="serial_number"
+          th:value="${device.serial_number}" />
       </div>
       <div>
         メーカー
@@ -125,6 +125,16 @@
         <input type="submit" value="Submit" />
         <input type="reset" value="Reset" />
       </p>
+    </form>
+
+    <form action="deleteDevice" method="post">
+      <div>
+        <input type="submit" value="Delete" />
+        <input
+          type="hidden"
+          name="serial_number"
+          th:value="${device.serial_number}" />
+      </div>
     </form>
   </body>
 </html>

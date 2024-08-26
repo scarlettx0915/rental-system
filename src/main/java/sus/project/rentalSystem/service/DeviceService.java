@@ -16,14 +16,16 @@ public class DeviceService {
 	@Autowired
 	DeviceRepository deviceRepository;
 	
-	public List<Device> findAll(){
+	public List<Device> findAll(boolean hide_deleted){
+		if(hide_deleted) {
+			return deviceRepository.findAllActiveDevices();
+		}
 		return deviceRepository.findAll();
 	};
 	
 	public Optional<Device> findById(String serial_number) {
 		return deviceRepository.findById(serial_number);
 	}
-	
 	
 	public void save(String serial_number, String maker, Integer memory, Integer capacity, Boolean gpu, String location, String lease_start_date, String lease_end_date, String inventory_date, String info) {
 		
@@ -57,7 +59,14 @@ public class DeviceService {
 			device.setUpdate_date(LocalDate.now().toString());
 			deviceRepository.save(device);
 		}
-		
-		
+	}
+	
+	public void delete(String serial_number) {
+		Optional<Device> optionalDevice = this.findById(serial_number);
+		if(optionalDevice.isPresent()) {
+			Device device = optionalDevice.get();
+			device.setDelete_flag(true);
+			deviceRepository.save(device);
+		}
 	}
 }

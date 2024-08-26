@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
+import sus.project.rentalSystem.entity.Device;
 import sus.project.rentalSystem.entity.User;
 import sus.project.rentalSystem.form.UserForm;
 import sus.project.rentalSystem.service.UserService;
@@ -24,7 +25,7 @@ public class UserController {
 	
 	@GetMapping("/user_list")
 	public String user_list(Model model) {
-		model.addAttribute("users", userService.findAll());
+		model.addAttribute("users", userService.findAll(true));
 		return "user_list";
 	}
 	
@@ -101,6 +102,13 @@ public class UserController {
 		return("redirect:user_list");
 	}
 	
-	
-	
+	@PostMapping("deleteUser")
+	public String deleteUser(@RequestParam("employee_no") String employee_no) {
+		Optional<User> optionalUser = userService.findById(employee_no);
+		if(optionalUser.isPresent()) {
+			userService.delete(employee_no);
+			return("redirect:user_list");
+		}
+		return("redirect:user_list");
+	}
 }

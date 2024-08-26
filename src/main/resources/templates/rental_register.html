@@ -20,7 +20,7 @@
         <select name="employee_no" id="employee_no" class="form-control">
           <option selected value>-- select an option --</option>
           <option th:each="user : ${users}" th:value="${user.employee_no}">
-            <span th:text="${user.employee_no}"></span>
+            <span th:text="${user.employee_no} + ' ' + ${user.name}"></span>
           </option>
         </select>
       </div>

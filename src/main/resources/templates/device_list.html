@@ -64,11 +64,13 @@
         <td th:text="${device.available}"></td>
         <td th:text="${device.location}"></td>
         <td th:text="${device.malfunction}"></td>
+  
         <td>
           <a th:href="@{/device_info(id=${device.serial_number})}">
             <button type="button">詳細</button>
           </a>
         </td>
+        
       </tr>
     </table>
   </body>

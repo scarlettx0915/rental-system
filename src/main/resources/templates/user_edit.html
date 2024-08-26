@@ -106,4 +106,14 @@
         <input type="reset" value="Reset" />
       </p>
     </form>
+    
+     <form action="deleteUser" method="post">
+      <div>
+        <input type="submit" value="Delete" />
+        <input
+          type="hidden"
+          name="employee_no"
+          th:value="${user.employee_no}" />
+      </div>
+    </form>
 </html>

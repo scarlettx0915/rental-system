@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="user")
+
 public class User {
 
 	@Id
@@ -36,6 +37,8 @@ public class User {
 	private String register_date;
 	@Column
 	private String update_date;
+	@Column(nullable = true)
+	private Boolean delete_flag;
 	
 	
 	public String getEmployee_no() {
@@ -115,6 +118,12 @@ public class User {
 	}
 	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
+	}
+	public Boolean getDelete_flag() {
+		return delete_flag;
+	}
+	public void setDelete_flag(Boolean delete_flag) {
+		this.delete_flag = delete_flag;
 	}
 	
 }

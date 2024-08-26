@@ -111,6 +111,5 @@ public class DeviceForm {
 	public void setInventory_date(String inventory_date) {
 		this.inventory_date = inventory_date;
 	}
-
 	
 }

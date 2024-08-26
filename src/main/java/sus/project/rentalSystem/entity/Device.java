@@ -40,6 +40,8 @@ public class Device {
 	private String update_date;
 	@Column
 	private String inventory_date;
+	@Column(nullable = true)
+	private Boolean delete_flag;
 	 
 	public String getSerial_number() {
 		return serial_number;
@@ -131,6 +133,13 @@ public class Device {
 	public void setInventory_date(String inventory_date) {
 		this.inventory_date = inventory_date;
 	}
+	public Boolean isDelete_flag() {
+		return delete_flag;
+	}
+	public void setDelete_flag(Boolean delete_flag) {
+		this.delete_flag = delete_flag;
+	}
+	
 	
 
 }

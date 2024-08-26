@@ -24,7 +24,7 @@ public class DeviceController {
 	
 	@GetMapping("/device_list")
 	public String device_list(Model model) {
-		model.addAttribute("devices", deviceService.findAll());
+		model.addAttribute("devices", deviceService.findAll(true));
 		return "device_list";
 	}
 	
@@ -103,4 +103,14 @@ public class DeviceController {
 		return "redirect:device_list";
 	}
 	
+	@PostMapping("deleteDevice")
+	public String deleteDevice(@RequestParam("serial_number") String serial_number) {
+		Optional<Device> device = deviceService.findById(serial_number);
+		if(device.isPresent()) {
+			deviceService.delete(serial_number);
+			return("redirect:device_list");
+		}
+		return("redirect:device_list");
+		
+	}
 }
