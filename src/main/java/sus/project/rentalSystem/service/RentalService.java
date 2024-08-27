@@ -20,9 +20,6 @@ public class RentalService {
 	DeviceRepository deviceRepository;
 	
 	public List<Rental> findAll(boolean hide_deleted){
-		if(hide_deleted) {
-			return rentalRepository.findAllActiveRentals();
-		}
 		
 		return rentalRepository.findAll();
 	}
