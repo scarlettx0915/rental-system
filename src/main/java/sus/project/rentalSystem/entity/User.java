@@ -37,7 +37,7 @@ public class User {
 	private String register_date;
 	@Column
 	private String update_date;
-	@Column(nullable = true)
+	@Column(insertable = false, updatable = true)
 	private Boolean delete_flag;
 	
 	

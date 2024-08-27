@@ -3,33 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <title>user list</title>
-    <style>
-      body {
-        font-size: 15px;
-      }
-      div {
-        overflow: scroll;
-
-        width: 100%;
-        height: 100%;
-      }
-
-      table {
-        width: 100%;
-      }
-
-      th,
-      td {
-        background-color: #bef8f8;
-        border: 0.5px solid white;
-        border-collapse: separate;
-      }
-    </style>
+    <span th:replace="~{common/scripts}"></span>
   </head>
   <body>
     <header th:replace="~{common/header}">Header</header>
     <h1>社員一覧</h1>
-    <a href="./user_register"><button type="button" id="">社員登録</button></a>
+    <div class="register-button-container">
+      <a href="./user_register">
+        <button
+          type="button"
+          id=""
+          class="btn btn-primary btn-sm top-right-button">
+          社員登録
+        </button>
+      </a>
+    </div>
     <table>
       <tr>
         <th>社員番号</th>

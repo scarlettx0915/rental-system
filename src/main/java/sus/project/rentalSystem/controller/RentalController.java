@@ -15,7 +15,6 @@ import jakarta.validation.Valid;
 import sus.project.rentalSystem.entity.Device;
 import sus.project.rentalSystem.entity.Rental;
 import sus.project.rentalSystem.entity.User;
-import sus.project.rentalSystem.form.DeviceForm;
 import sus.project.rentalSystem.form.RentalForm;
 import sus.project.rentalSystem.service.RentalService;
 import sus.project.rentalSystem.service.UserService;
@@ -36,8 +35,13 @@ public class RentalController {
 	
 	
 	@GetMapping("/rental_info")
-	public String rental_info() {
-		return "rental_info";
+	public String rental_info(@RequestParam("id")String id, Model model) {
+		Optional<Rental> rental = rentalService.findById(id);
+		if(rental.isPresent()) {
+			model.addAttribute("rental",rental.get());
+			return "rental_info";
+		}
+		return "redirect:rental_list";
 	}
 	
 	@GetMapping("/rental_register")
@@ -48,9 +52,14 @@ public class RentalController {
 	}
 	
 	@GetMapping("/rental_edit")
-	public String rental_edit() {
-		return "rental_edit";
-	}
+	public String rental_edit(@RequestParam("id")String id, Model model) {
+		Optional<Rental> optionalRental = rentalService.findById(id);
+		if(optionalRental.isPresent()) {
+			model.addAttribute("rental",optionalRental.get());
+			model.addAttribute("users", userService.findAll(true));
+			return "rental_edit";
+		}
+		return "redirect:device_list";	}
 	
 	@PostMapping("addRental")
 	public String addRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result) {
@@ -60,7 +69,7 @@ public class RentalController {
 		Optional<Rental> optionalRental = rentalService.findById(rentalForm.getSerial_number());
 		if(optionalRental.isPresent()) {
 			//if device exists display message
-			return "device_register";
+			return "rental_register";
 		}
 		
 		Optional<User> optionalUser = userService.findById(rentalForm.getEmployee_no());
@@ -76,9 +85,28 @@ public class RentalController {
 					);
 		}
 
-		return("redirect:device_list");
+		return("redirect:rental_list");
 	}
 	
+	@PostMapping("editRental")
+	public String editRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result){
+		if(result.hasErrors()) {
+			return "rental_list";
+		}
+		Optional<Rental> optionalRental = rentalService.findById(rentalForm.getSerial_number());
+		Optional<User> optionalUser = userService.findById(rentalForm.getEmployee_no());
+		if(optionalRental.isPresent() && optionalUser.isPresent()) {
+			User user = optionalUser.get();
+			rentalService.save(rentalForm.getSerial_number(), 
+					rentalForm.getEmployee_no(),
+					user.getName(),
+					rentalForm.getRental_date(),
+					rentalForm.getReturn_date(),
+					rentalForm.getInfo());
+		}
 	
+	return("redirect:rental_list");
+
+	}
 	
 }

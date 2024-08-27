@@ -40,7 +40,7 @@ public class Device {
 	private String update_date;
 	@Column
 	private String inventory_date;
-	@Column(nullable = true)
+	@Column(insertable = false, updatable = true)
 	private Boolean delete_flag;
 	 
 	public String getSerial_number() {

@@ -1,0 +1,11 @@
+.register-button-container {
+  position: relative;
+  height: 50px; /* Adjust the height as needed */
+}
+
+/* Style the button to be positioned in the top-right corner */
+.top-right-button {
+  position: absolute;
+  top: 0;
+  right: 50px;
+}

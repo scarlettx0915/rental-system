@@ -1,0 +1,16 @@
+.title {
+  margin-top: 20px;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background-color: white; /* Matches the header background color */
+  z-index: 10; /* Ensures header stays on top of other content */
+}
+
+table {
+  height: 600px;
+  width: 100%;
+  overflow: scroll;
+}

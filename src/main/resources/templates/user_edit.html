@@ -8,14 +8,14 @@
   <body>
     <header th:replace="~{common/header}">Header</header>
     <h1>社員編集</h1>
-  </body>
+  
   
   <form th:action="@{/editUser}" th:object="${userForm}" method="post">
       <div class="form-label-group">
         <label for="employee_no">社員番号</label>
         <span
-          id="serial_number"
-          name="serial_number"
+          id="employee_no"
+          name="employee_no"
           class="form-control"
           th:text="${user.employee_no}"></span>
         <input
@@ -116,4 +116,5 @@
           th:value="${user.employee_no}" />
       </div>
     </form>
+  </body>
 </html>

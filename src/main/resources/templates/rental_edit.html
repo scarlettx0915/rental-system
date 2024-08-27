@@ -3,12 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <title>貸出編集</title>
+    <span th:replace="~{common/scripts}"></span>
   </head>
 
   <body>
     <header th:replace="~{common/header}">Header</header>
     <h1>貸出編集</h1>
+
+    <form th:action="@{/editRental}" method="post">
+      <div class="form-label-group">
+        <label for="serial_number">資産番号</label>
+        <span
+          id="serial_number"
+          name="serial_number"
+          class="form-control"
+          th:text="${rental.serial_number}"></span>
+        <input
+          type="hidden"
+          name="serial_number"
+          th:value="${rental.serial_number}" />
+      </div>
+      <div class="form-label-group">
+        <label for="employee_no">社員番号・氏名</label>
+        <select name="employee_no" id="employee_no" class="form-control">
+          <option disabled value>-- select an option --</option>
+          <option
+            th:each="user : ${users}"
+            th:value="${user.employee_no}"
+            th:selected="${user.employee_no} == ${rental.employee_no}"
+            th:text="${user.employee_no} + ' ' + ${user.name}"></option>
+        </select>
+      </div>
+      <div class="form-label-group">
+        <label for="rental_date">貸出日</label>
+        <input
+          type="date"
+          id="rental_date"
+          name="rental_date"
+          class="form-control"
+          th:value="${rental.rental_date}" />
+      </div>
+      <div class="form-label-group">
+        <label for="return_date">返却予定日</label>
+        <input
+          type="date"
+          id="return_date"
+          name="return_date"
+          class="form-control"
+          th:value="${rental.return_date}" />
+      </div>
+      <div class="form-label-group">
+        <label for="info">備考欄</label>
+        <input
+          type="text"
+          id="info"
+          name="info"
+          class="form-control"
+          th:value="${rental.info}" />
+      </div>
+
+      <p>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
   </body>
-  
-  
 </html>

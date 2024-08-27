@@ -8,5 +8,32 @@
   <body>
     <header th:replace="~{common/header}">Header</header>
     <h1>貸出詳細</h1>
+
+    <div>
+      機器資産番号
+      <span th:text="${rental.serial_number}"></span>
+    </div>
+    <div>
+      社員番号
+      <span th:text="${rental.employee_no}"></span>
+    </div>
+    <div>
+      社員氏名
+      <span th:text="${rental.employee_name}"></span>
+    </div>
+    <div>
+      貸出日
+      <span th:text="${rental.rental_date}"></span>
+    </div>
+    <div>
+      返却予定日
+      <span th:text="${rental.return_date}"></span>
+    </div>
+
+    <span>
+      <a th:href="@{/rental_edit(id=${rental.serial_number})}">
+        <button type="button">編集</button>
+      </a>
+    </span>
   </body>
 </html>

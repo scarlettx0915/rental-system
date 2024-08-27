@@ -3,75 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <title>機器一覧</title>
-
-    <style>
-      body {
-        font-size: 15px;
-      }
-      div {
-        overflow: scroll;
-
-        width: 100%;
-        height: 100%;
-      }
-
-      table {
-        width: 100%;
-      }
-      th,
-      td {
-        background-color: #d9fcfc;
-        border: 1px solid white;
-        border-collapse: collapse;
-      }
-    </style>
+    <span th:replace="~{common/scripts}"></span>
+    <link rel="stylesheet" href="register-button.css" />
   </head>
 
   <body>
     <header th:replace="~{common/header}">Header</header>
-    <h2>機器一覧だよ～</h2>
-    <a th:href="@{/device_register}">
-      <button type="button" id="">機器登録</button>
-    </a>
+    <div class="container">
+      <h2 class="title">機器一覧</h2>
 
-    <table>
-      <tr>
-        <th></th>
-        <th>資産番号</th>
-        <th>メーカー</th>
-        <th>OS</th>
-        <th>GPU</th>
-        <th>空き</th>
-        <th>保管場所</th>
-        <th>故障状況</th>
-        <th>詳細</th>
-      </tr>
-      <tr th:each="device : ${devices}">
-        <td>
-          <a th:href="@{/rental_register(id=${device.serial_number})}">
-            <span th:if="${device.available}">
-              <button type="button">貸出</button>
-            </span>
-            <span th:unless="${device.available}">
-              <button type="button" disabled>貸出</button>
-            </span>
-          </a>
-        </td>
-        <td th:text="${device.serial_number}"></td>
-        <td th:text="${device.maker}"></td>
-        <td th:text="${device.operating_system}"></td>
-        <td th:text="${device.gpu}"></td>
-        <td th:text="${device.available}"></td>
-        <td th:text="${device.location}"></td>
-        <td th:text="${device.malfunction}"></td>
-  
-        <td>
-          <a th:href="@{/device_info(id=${device.serial_number})}">
-            <button type="button">詳細</button>
-          </a>
-        </td>
-        
-      </tr>
-    </table>
+      <div class="register-button-container">
+        <a th:href="@{/device_register}">
+          <button
+            type="button"
+            id=""
+            class="btn btn-primary btn-sm top-right-button">
+            機器登録
+          </button>
+        </a>
+      </div>
+
+      <div style="height: 600px; width: 100%; overflow: scroll">
+        <table class="table table-striped">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">資産番号</th>
+              <th scope="col">メーカー</th>
+              <th scope="col">OS</th>
+              <th scope="col">GPU</th>
+              <th scope="col">空き</th>
+              <th scope="col">保管場所</th>
+              <th scope="col">故障状況</th>
+              <th scope="col">詳細</th>
+            </tr>
+          </thead>
+          <tbody class="table-striped">
+            <tr th:each="device : ${devices}">
+              <td>
+                <span th:if="${device.available}">
+                  <a th:href="@{/rental_register(id=${device.serial_number})}">
+                    <button type="button" class="btn btn-primary btn-sm">
+                      貸出
+                    </button>
+                  </a>
+                </span>
+                <span th:unless="${device.available}">
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-sm"
+                    disabled>
+                    貸出
+                  </button>
+                </span>
+              </td>
+              <td th:text="${device.serial_number}"></td>
+              <td th:text="${device.maker}"></td>
+              <td th:text="${device.operating_system}"></td>
+              <td>
+                <input type="checkbox" disabled th:checked="${device.gpu}" />
+              </td>
+              <td th:text="${device.available}"></td>
+              <td th:text="${device.location}"></td>
+              <td th:text="${device.malfunction}"></td>
+
+              <td>
+                <a th:href="@{/device_info(id=${device.serial_number})}">
+                  <button type="button" class="btn btn-outline-primary btn-sm">
+                    詳細
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

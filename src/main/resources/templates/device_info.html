@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <span th:replace="~{common/scripts}"></span>
     <title>機器詳細</title>
   </head>
 
@@ -77,7 +78,7 @@
         <button type="button">貸出登録</button>
       </a>
     </span>
-    
+
     <span>
       <a th:href="@{/device_edit(id=${device.serial_number})}">
         <button type="button">編集</button>
