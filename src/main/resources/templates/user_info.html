@@ -1,74 +1,75 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>社員詳細</title>
+    <th:block th:replace="~{common/scripts}"></th:block>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>社員詳細</title>
-</head>
+  <body>
+    <header th:replace="~{common/header}">Header</header>
+    <h2 class="title">社員詳細</h2>
 
-<body>
-  <header th:replace="~{common/header}">Header</header>
-  <h1>社員詳細</h1>
+    <div>
+      社員番号
+      <span th:text="${user.employee_no}"></span>
+    </div>
+    <div>
+      氏名
+      <span th:text="${user.name}"></span>
+    </div>
+    <div>
+      氏名カタカナ
+      <span th:text="${user.name_kana}"></span>
+    </div>
+    <div>
+      所属部署
+      <span th:text="${user.department}"></span>
+    </div>
+    <div>
+      電話番号
+      <span th:text="${user.tel_no}"></span>
+    </div>
+    <div>
+      メールアドレス
+      <span th:text="${user.mail_address}"></span>
+    </div>
+    <div>
+      年齢
+      <span th:text="${user.age}"></span>
+    </div>
+    <div>
+      性別
+      <span
+        th:text="${user.gender == '1' ? '女' : (user.gender == '0' ? '男' : 'Unknown')}"></span>
+    </div>
+    <div>
+      役職
+      <span th:text="${user.position}"></span>
+    </div>
+    <div>
+      登録日
+      <span th:text="${user.register_date}"></span>
+    </div>
+    <div>
+      更新日
+      <span th:text="${user.update_date}"></span>
+    </div>
+    <div>
+      退職日
+      <span
+        th:text="${user.retire_date}"
+        th:hidden="${user.retire_date}=='0000-00-00'"></span>
+    </div>
+    <div>
+      アカウント権限
+      <span th:text="${user.account_level}"></span>
+    </div>
 
-  <div>
-    社員番号
-    <span th:text="${user.employee_no}"></span>
-  </div>
-  <div>
-    氏名
-    <span th:text="${user.name}"></span>
-  </div>
-  <div>
-    氏名カタカナ
-    <span th:text="${user.name_kana}"></span>
-  </div>
-  <div>
-    所属部署
-    <span th:text="${user.department}"></span>
-  </div>
-  <div>
-    電話番号
-    <span th:text="${user.tel_no}"></span>
-  </div>
-  <div>
-    メールアドレス
-    <span th:text="${user.mail_address}"></span>
-  </div>
-  <div>
-    年齢
-    <span th:text="${user.age}"></span>
-  </div>
-  <div>
-    性別
-    <span th:text="${user.gender == '1' ? '女' : (user.gender == '0' ? '男' : 'Unknown')}"></span>
-  </div>
-  <div>
-    役職
-    <span th:text="${user.position}"></span>
-  </div>
-  <div>
-    登録日
-    <span th:text="${user.register_date}"></span>
-  </div>
-  <div>
-    更新日
-    <span th:text="${user.update_date}"></span>
-  </div>
-  <div>
-    退職日
-    <span th:text="${user.retire_date}" th:hidden="${user.retire_date}=='0000-00-00'"></span>
-  </div>
-  <div>
-    アカウント権限
-    <span th:text="${user.account_level}"></span>
-  </div>
-  
-  <span>
+    <span>
       <a th:href="@{/user_edit(id=${user.employee_no})}">
         <button type="button">編集</button>
       </a>
     </span>
-
-</body>
-
+  </body>
 </html>

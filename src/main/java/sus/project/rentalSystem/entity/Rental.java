@@ -22,6 +22,8 @@ public class Rental {
 	private String return_date;
 	@Column
 	private String info;
+	@Column(insertable = false, updatable = true)
+	private Boolean delete_flag;
 	
 	public String getSerial_number() {
 		return serial_number;
@@ -58,6 +60,12 @@ public class Rental {
 	}
 	public void setInfo(String info) {
 		this.info = info;
+	}
+	public Boolean getDelete_flag() {
+		return delete_flag;
+	}
+	public void setDelete_flag(Boolean delete_flag) {
+		this.delete_flag = delete_flag;
 	}
 	
 	

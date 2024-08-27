@@ -3,139 +3,161 @@
   <head>
     <meta charset="UTF-8" />
     <title>機器編集</title>
-    <span th:replace="~{common/scripts}"></span>
+    <th:block th:replace="~{common/scripts}"></th:block>
   </head>
 
   <body>
     <header th:replace="~{common/header}">Header</header>
-    <h2>機器編集</h2>
-    <form action="editDevice" method="post">
-      <div>
-        資産番号
-        <span
-          id="serial_number"
-          name="serial_number"
-          class="form-control"
-          th:text="${device.serial_number}"></span>
-        <input
-          type="hidden"
-          name="serial_number"
-          th:value="${device.serial_number}" />
-      </div>
-      <div>
-        メーカー
-        <input
-          type="text"
-          id="maker"
-          name="maker"
-          class="form-control"
-          th:value="${device.maker}" />
-      </div>
-      <div>
-        OS
-        <input
-          type="text"
-          id="operating_system"
-          name="operating_system"
-          class="form-control"
-          th:value="${device.operating_system}" />
-      </div>
-      <div>
-        メモリ
-        <select name="memory" id="memory" class="form-control">
-          <option value="">-- select an option --</option>
-          <option value="4" th:selected="${device.memory == 4}">4GB</option>
-          <option value="8" th:selected="${device.memory == 8}">8GB</option>
-          <option value="16" th:selected="${device.memory == 16}">16GB</option>
-          <option value="32" th:selected="${device.memory == 32}">32GB</option>
-        </select>
-      </div>
-      <div>
-        容量
-        <select name="capacity" id="capacity" class="form-control">
-          <option selected value>-- select an option --</option>
-          <option value="256" th:selected="${device.capacity == 256}">
-            256GB
-          </option>
-          <option value="512" th:selected="${device.capacity == 512}">
-            512GB
-          </option>
-          <option value="1024" th:selected="${device.capacity == 1024}">
-            1TB
-          </option>
-          <option value="2048" th:selected="${device.capacity == 2048}">
-            2TB
-          </option>
-        </select>
-      </div>
-      <div>
-        グラフィックボード
-        <input
-          type="checkbox"
-          id="gpu"
-          name="gpu"
-          class="form-control"
-          th:checked="${device.gpu}" />
-      </div>
-      <div>
-        保管場所
-        <input
-          type="text"
-          id="location"
-          name="location"
-          class="form-control"
-          th:value="${device.location}" />
-      </div>
-      <div>
-        故障中
-        <input
-          type="checkbox"
-          id="malfunction"
-          name="malfunction"
-          class="form-control"
-          th:checked="${device.malfunction}" />
-      </div>
-      <div>
-        リース開始日
-        <input
-          type="date"
-          id="lease_start_date"
-          name="lease_start_date"
-          class="form-control"
-          th:value="${device.lease_start_date}" />
-      </div>
-      <div>
-        リース期限日
-        <input
-          type="date"
-          id="lease_end_date"
-          name="lease_end_date"
-          class="form-control"
-          th:value="${device.lease_end_date}" />
-      </div>
-      <div>
-        棚卸日
-        <input
-          type="date"
-          id="inventory_date"
-          name="inventory_date"
-          class="form-control"
-          th:value="${device.inventory_date}" />
-      </div>
-      <p>
-        <input type="submit" value="Submit" />
-        <input type="reset" value="Reset" />
-      </p>
-    </form>
+    <div class="container">
+      <h2 class="title">機器編集</h2>
+      <div class="container mx-auto" style="width: 400px">
+        <form action="editDevice" method="post">
+          <div class="form-label-group mb-3">
+            資産番号
+            <span
+              id="serial_number"
+              name="serial_number"
+              th:text="${device.serial_number}"></span>
+            <input
+              type="hidden"
+              name="serial_number"
+              th:value="${device.serial_number}" />
+          </div>
+          <div class="form-label-group mb-3">
+            メーカー
+            <input
+              type="text"
+              id="maker"
+              name="maker"
+              class="form-control"
+              th:value="${device.maker}" />
+          </div>
+          <div class="form-label-group mb-3">
+            OS
+            <input
+              type="text"
+              id="operating_system"
+              name="operating_system"
+              class="form-control"
+              th:value="${device.operating_system}" />
+          </div>
+          <div class="form-label-group mb-3">
+            メモリ
+            <select name="memory" id="memory" class="form-control form-select">
+              <option value="">-- select an option --</option>
+              <option value="4" th:selected="${device.memory == 4}">4GB</option>
+              <option value="8" th:selected="${device.memory == 8}">8GB</option>
+              <option value="16" th:selected="${device.memory == 16}">
+                16GB
+              </option>
+              <option value="32" th:selected="${device.memory == 32}">
+                32GB
+              </option>
+            </select>
+          </div>
+          <div class="form-label-group mb-3">
+            容量
+            <select
+              name="capacity"
+              id="capacity"
+              class="form-control form-select">
+              <option selected value>-- select an option --</option>
+              <option value="256" th:selected="${device.capacity == 256}">
+                256GB
+              </option>
+              <option value="512" th:selected="${device.capacity == 512}">
+                512GB
+              </option>
+              <option value="1024" th:selected="${device.capacity == 1024}">
+                1TB
+              </option>
+              <option value="2048" th:selected="${device.capacity == 2048}">
+                2TB
+              </option>
+            </select>
+          </div>
+          <div class="form-check mb-3">
+            <label class="form-check-label" for="gpu">グラフィックボード</label>
+            <input
+              type="checkbox"
+              id="gpu"
+              name="gpu"
+              class="form-check-input"
+              th:checked="${device.gpu}" />
+          </div>
+          <div class="form-label-group mb-3">
+            <label for="location">保管場所</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              class="form-control"
+              th:value="${device.location}" />
+          </div>
+          <div class="form-check mb-3">
+            <label class="form-check-label" for="malfunction">故障中</label>
+            <input
+              type="checkbox"
+              id="malfunction"
+              name="malfunction"
+              class="form-check-input"
+              th:checked="${device.malfunction}" />
+          </div>
+          <div class="form-label-group mb-3">
+            <label for="lease_start_date">リース開始日</label>
+            <input
+              type="date"
+              id="lease_start_date"
+              name="lease_start_date"
+              class="form-control"
+              th:value="${device.lease_start_date}" />
+          </div>
+          <div class="form-label-group mb-3">
+            <label for="lease_end_date">リース期限日</label>
+            <input
+              type="date"
+              id="lease_end_date"
+              name="lease_end_date"
+              class="form-control"
+              th:value="${device.lease_end_date}" />
+          </div>
+          <div class="form-label-group">
+            <label for="inventory_date">棚卸日</label>
+            <input
+              type="date"
+              id="inventory_date"
+              name="inventory_date"
+              class="form-control"
+              th:value="${device.inventory_date}" />
+          </div>
+          <div class="form-label-group mb-5">
+            <label for="info">備考</label>
+            <textarea
+              type="text"
+              id="info"
+              name="info"
+              class="form-control"
+              rows="3"
+              height="100%"
+              th:text="${device.info}"></textarea>
+          </div>
+          <!-- Submit and Reset buttons -->
+          <div class="form-group mb-3">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-secondary" />
+          </div>
+        </form>
 
-    <form action="deleteDevice" method="post">
-      <div>
-        <input type="submit" value="Delete" />
-        <input
-          type="hidden"
-          name="serial_number"
-          th:value="${device.serial_number}" />
+        <form action="deleteDevice" method="post" class="form-group">
+          <div>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <input
+              type="hidden"
+              name="serial_number"
+              th:value="${device.serial_number}" />
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </body>
 </html>

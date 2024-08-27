@@ -3,32 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <title>貸出一覧</title>
+    <th:block th:replace="~{common/scripts}"></th:block>
   </head>
 
   <body>
     <header th:replace="~{common/header}">Header</header>
-    <h1>貸出一覧</h1>
-
-    <table>
-      <tr>
-        <th>資産番号</th>
-        <th>社員番号</th>
-        <th>社員名</th>
-        <th>貸出日</th>
-        <th>返却予定日</th>
-      </tr>
-      <tr th:each="rental : ${rentals}">
-        <td th:text="${rental.serial_number}"></td>
-        <td th:text="${rental.employee_no}"></td>
-        <td th:text="${rental.employee_name}"></td>
-        <td th:text="${rental.rental_date}"></td>
-        <td th:text="${rental.return_date}"></td>
-        <td>
-          <a th:href="@{/rental_info(id=${rental.serial_number})}">
-            <button type="button">詳細</button>
-          </a>
-        </td>
-      </tr>
-    </table>
+    <div class="container">
+      <h2 class="title">貸出一覧</h2>
+      <div class="register-button-container">
+        <a href="/">
+          <button
+            type="button"
+            id=""
+            class="btn btn-primary btn-sm top-right-button">
+            貸出履歴
+          </button>
+        </a>
+      </div>
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead class="table-primary">
+            <tr>
+              <th></th>
+              <th scope="col">資産番号</th>
+              <th scope="col">社員番号</th>
+              <th scope="col">社員名</th>
+              <th scope="col">貸出日</th>
+              <th scope="col">返却予定日</th>
+              <th scope="col">詳細</th>
+            </tr>
+          </thead>
+          <tbody class="table-striped">
+            <tr th:each="rental : ${rentals}">
+              <td>
+                <form action="returnRental" method="post">
+                  <div>
+                    <input
+                      type="submit"
+                      value="返却"
+                      class="btn btn-primary btn-sm" />
+                    <input
+                      type="hidden"
+                      name="serial_number"
+                      th:value="${rental.serial_number}" />
+                  </div>
+                </form>
+              </td>
+              <td th:text="${rental.serial_number}"></td>
+              <td th:text="${rental.employee_no}"></td>
+              <td th:text="${rental.employee_name}"></td>
+              <td th:text="${rental.rental_date}"></td>
+              <td th:text="${rental.return_date}"></td>
+              <td>
+                <a th:href="@{/rental_info(id=${rental.serial_number})}">
+                  <button type="button" class="btn btn-outline-primary btn-sm">
+                    詳細
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

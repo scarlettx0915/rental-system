@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sus.project.rentalSystem.entity.Device;
 import sus.project.rentalSystem.entity.Rental;
+import sus.project.rentalSystem.repository.DeviceRepository;
 import sus.project.rentalSystem.repository.RentalRepository;
 
 @Service
@@ -14,7 +16,14 @@ public class RentalService {
 
 	@Autowired
 	RentalRepository rentalRepository;
-	public List<Rental> findAll(){
+	@Autowired
+	DeviceRepository deviceRepository;
+	
+	public List<Rental> findAll(boolean hide_deleted){
+		if(hide_deleted) {
+			return rentalRepository.findAllActiveRentals();
+		}
+		
 		return rentalRepository.findAll();
 	}
 	
@@ -34,4 +43,16 @@ public class RentalService {
 		rentalRepository.save(rental);
 		
 	};
+	
+	public void delete(String serial_number) {
+		Optional<Rental> optionalRental = this.findById(serial_number);
+		Optional<Device> optionalDevice = deviceRepository.findById(serial_number);
+		if(optionalRental.isPresent() && optionalDevice.isPresent()) {
+			Device device = optionalDevice.get();
+			device.setAvailable(true);
+			deviceRepository.save(device);
+			
+			rentalRepository.deleteById(serial_number);
+		}
+	}
 }

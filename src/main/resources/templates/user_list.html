@@ -2,47 +2,57 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>user list</title>
-    <span th:replace="~{common/scripts}"></span>
+    <title>社員一覧</title>
+    <th:block th:replace="~{common/scripts}"></th:block>
   </head>
   <body>
     <header th:replace="~{common/header}">Header</header>
-    <h1>社員一覧</h1>
-    <div class="register-button-container">
-      <a href="./user_register">
-        <button
-          type="button"
-          id=""
-          class="btn btn-primary btn-sm top-right-button">
-          社員登録
-        </button>
-      </a>
+    <div class="container">
+      <h2 class="title">社員一覧</h2>
+      <div class="register-button-container">
+        <a href="./user_register">
+          <button
+            type="button"
+            id=""
+            class="btn btn-primary btn-sm top-right-button">
+            社員登録
+          </button>
+        </a>
+      </div>
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col">社員番号</th>
+              <th scope="col">社員名</th>
+              <th scope="col">部署</th>
+              <th scope="col">役職</th>
+              <th scope="col">メールアドレス</th>
+              <th scope="col">登録日</th>
+              <th scope="col">更新日</th>
+              <th scope="col">詳細</th>
+            </tr>
+          </thead>
+          <tbody class="table-striped">
+            <tr th:each="user : ${users}">
+              <td th:text="${user.employee_no}"></td>
+              <td th:text="${user.name}"></td>
+              <td th:text="${user.department}"></td>
+              <td th:text="${user.position}"></td>
+              <td th:text="${user.mail_address}"></td>
+              <td th:text="${user.register_date}"></td>
+              <td th:text="${user.update_date}"></td>
+              <td>
+                <a th:href="@{/user_info(id=${user.employee_no})}">
+                  <button type="button" class="btn btn-outline-primary btn-sm">
+                    詳細
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <table>
-      <tr>
-        <th>社員番号</th>
-        <th>社員名</th>
-        <th>部署</th>
-        <th>役職</th>
-        <th>メールアドレス</th>
-        <th>登録日</th>
-        <th>更新日</th>
-        <th>詳細</th>
-      </tr>
-      <tr th:each="user : ${users}">
-        <td th:text="${user.employee_no}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.department}"></td>
-        <td th:text="${user.position}"></td>
-        <td th:text="${user.mail_address}"></td>
-        <td th:text="${user.register_date}"></td>
-        <td th:text="${user.update_date}"></td>
-        <td>
-          <a th:href="@{/user_info(id=${user.employee_no})}">
-            <button type="button">詳細</button>
-          </a>
-        </td>
-      </tr>
-    </table>
   </body>
 </html>

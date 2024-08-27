@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <include page="common/header">
-
-<body>
-    <h1>
-        HELLO
-    </h1>
-
-    <a href="user_list"><button type="button">社員一覧</button></a>
-    <a href="device_list"><button type="button">機器一覧</button></a>
-    <a href="rental_list"><button type="button">貸出一覧</button></a>
-</body>
-
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <th:block th:replace="~{common/scripts}"></th:block>
+  <body>
+    <div class="home-container">
+      <h1 class="home-logo">HELLO</h1>
+      <div class="button-group">
+        <a href="user_list" class="btn btn-primary btn-lg mb-5">社員一覧</a>
+        <a href="device_list" class="btn btn-primary btn-lg mb-5">機器一覧</a>
+        <a href="rental_list" class="btn btn-primary btn-lg mb-5">貸出一覧</a>
+      </div>
+    </div>
+  </body>
 </html>

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
-import sus.project.rentalSystem.entity.Device;
 import sus.project.rentalSystem.entity.User;
 import sus.project.rentalSystem.form.UserForm;
 import sus.project.rentalSystem.service.UserService;

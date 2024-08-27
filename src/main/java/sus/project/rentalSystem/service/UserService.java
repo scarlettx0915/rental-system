@@ -23,6 +23,7 @@ public class UserService {
 	};
 	
 	public void save(String employee_no, String name, String name_kana, String department, String tel_no, String mail_address, Integer age, String gender, String position, String account_level) {
+		
 		User user = new User();
 		user.setName(name);
 		user.setEmployee_no(employee_no);

@@ -16,6 +16,7 @@ import sus.project.rentalSystem.entity.Device;
 import sus.project.rentalSystem.entity.Rental;
 import sus.project.rentalSystem.entity.User;
 import sus.project.rentalSystem.form.RentalForm;
+import sus.project.rentalSystem.service.DeviceService;
 import sus.project.rentalSystem.service.RentalService;
 import sus.project.rentalSystem.service.UserService;
 
@@ -26,10 +27,12 @@ public class RentalController {
 	RentalService rentalService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	DeviceService deviceService;
 	
 	@GetMapping("/rental_list")
 	public String rental_list(Model model) {
-		model.addAttribute("rentals", rentalService.findAll());
+		model.addAttribute("rentals", rentalService.findAll(true));
 		return "rental_list";
 	}
 	
@@ -64,16 +67,19 @@ public class RentalController {
 	@PostMapping("addRental")
 	public String addRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result) {
 		if(result.hasErrors()) {
+			System.out.println(result.getAllErrors());
 			return "rental_register";
 		}
+		
 		Optional<Rental> optionalRental = rentalService.findById(rentalForm.getSerial_number());
 		if(optionalRental.isPresent()) {
 			//if device exists display message
 			return "rental_register";
 		}
 		
+		Optional<Device> optionalDevice = deviceService.findById(rentalForm.getSerial_number());
 		Optional<User> optionalUser = userService.findById(rentalForm.getEmployee_no());
-		if(optionalUser.isPresent()) {
+		if(optionalUser.isPresent() && optionalDevice.isPresent()) {
 			User user = optionalUser.get();
 			rentalService.save(
 					rentalForm.getSerial_number(), 
@@ -83,8 +89,8 @@ public class RentalController {
 					rentalForm.getReturn_date(),
 					rentalForm.getInfo()
 					);
+			deviceService.setAvailability(rentalForm.getSerial_number(), false);
 		}
-
 		return("redirect:rental_list");
 	}
 	
@@ -108,5 +114,18 @@ public class RentalController {
 	return("redirect:rental_list");
 
 	}
+	
+	@PostMapping("returnRental")
+	public String returnRental(@RequestParam("serial_number") String serial_number) {
+		Optional<Device> optionalDevice = deviceService.findById(serial_number);
+		Optional<Rental> optionalRental = rentalService.findById(serial_number);
+		if(optionalDevice.isPresent() && optionalRental.isPresent()) {
+			rentalService.delete(serial_number);
+			return("redirect:rental_list");
+		}
+		return("redirect:rental_list");
+		
+	}
+
 	
 }

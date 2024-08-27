@@ -69,4 +69,13 @@ public class DeviceService {
 			deviceRepository.save(device);
 		}
 	}
+	
+	public void setAvailability(String serial_number, boolean available) {
+		Optional<Device> optionalDevice = this.findById(serial_number);
+		if(optionalDevice.isPresent()) {
+			Device device = optionalDevice.get();
+			device.setAvailable(available);
+			deviceRepository.save(device);
+		}
+	}
 }
