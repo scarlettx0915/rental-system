@@ -8,51 +8,57 @@
 
   <body>
     <header th:replace="~{common/header}">Header</header>
-    <h2 class="title">貸出登録</h2>
+    <div class="container">
+      <h2 class="title">貸出登録</h2>
+      <div class="container mx-auto" style="width: 400px">
+        <form action="addRental" method="post">
+          <div class="form-label-group">
+            <label for="name">資産番号: </label>
+            <span th:text="${serial_number}"></span>
+          </div>
+          <input
+            type="hidden"
+            name="serial_number"
+            th:value="${serial_number}" />
+          <div class="form-label-group">
+            <label for="employee_no">社員番号</label>
+            <select
+              name="employee_no"
+              id="employee_no"
+              class="form-control form-select">
+              <option selected value>-- select an option --</option>
+              <option th:each="user : ${users}" th:value="${user.employee_no}">
+                <span th:text="${user.employee_no} + ' ' + ${user.name}"></span>
+              </option>
+            </select>
+          </div>
+          <div class="form-label-group">
+            <label for="rental_date">貸出日</label>
+            <input
+              type="date"
+              id="rental_date"
+              name="rental_date"
+              class="form-control" />
+          </div>
+          <div class="form-label-group">
+            <label for="return_date">返却予定日</label>
+            <input
+              type="date"
+              id="return_date"
+              name="return_date"
+              class="form-control" />
+          </div>
+          <div class="form-label-group">
+            <label for="info">備考欄</label>
+            <input type="text" id="info" name="info" class="form-control" />
+          </div>
 
-    <form action="addRental" method="post">
-      <div class="form-label-group">
-        <label for="name">資産番号</label>
-        <span th:text="${serial_number}"></span>
+          <p>
+            <input type="submit" value="Submit" />
+            <input type="reset" value="Reset" />
+          </p>
+        </form>
       </div>
-      <input type="hidden" name="serial_number" th:value="${serial_number}" />
-      <div class="form-label-group">
-        <label for="employee_no">社員番号</label>
-        <select name="employee_no" id="employee_no" class="form-control">
-          <option selected value>-- select an option --</option>
-          <option th:each="user : ${users}" th:value="${user.employee_no}">
-            <span th:text="${user.employee_no} + ' ' + ${user.name}"></span>
-          </option>
-        </select>
-      </div>
-      <div>
-        <!-- show corresponding employee name -->
-      </div>
-      <div class="form-label-group">
-        <label for="rental_date">貸出日</label>
-        <input
-          type="date"
-          id="rental_date"
-          name="rental_date"
-          class="form-control" />
-      </div>
-      <div class="form-label-group">
-        <label for="return_date">返却予定日</label>
-        <input
-          type="date"
-          id="return_date"
-          name="return_date"
-          class="form-control" />
-      </div>
-      <div class="form-label-group">
-        <label for="info">備考欄</label>
-        <input type="text" id="info" name="info" class="form-control" />
-      </div>
-
-      <p>
-        <input type="submit" value="Submit" />
-        <input type="reset" value="Reset" />
-      </p>
-    </form>
+    </div>
   </body>
 </html>

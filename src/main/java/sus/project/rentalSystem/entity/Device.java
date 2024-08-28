@@ -139,7 +139,5 @@ public class Device {
 	public void setDelete_flag(Boolean delete_flag) {
 		this.delete_flag = delete_flag;
 	}
-	
-	
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import sus.project.rentalSystem.entity.Device;
@@ -65,20 +66,23 @@ public class RentalController {
 		return "redirect:device_list";	}
 	
 	@PostMapping("addRental")
-	public String addRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result) {
+	public String addRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result, RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
 			System.out.println(result.getAllErrors());
 			return "rental_register";
 		}
 		
 		Optional<Rental> optionalRental = rentalService.findById(rentalForm.getSerial_number());
-		if(optionalRental.isPresent()) {
-			//if device exists display message
-			return "rental_register";
-		}
-		
 		Optional<Device> optionalDevice = deviceService.findById(rentalForm.getSerial_number());
 		Optional<User> optionalUser = userService.findById(rentalForm.getEmployee_no());
+		
+		if(optionalRental.isPresent()) {
+			//if rental exists display message
+			redirectAttributes.addFlashAttribute("message", "この機器は貸出中です");
+			redirectAttributes.addFlashAttribute("alertType", "alert-danger");
+			return "redirect:rental_list";
+		}
+		
 		if(optionalUser.isPresent() && optionalDevice.isPresent()) {
 			User user = optionalUser.get();
 			rentalService.save(
@@ -90,12 +94,15 @@ public class RentalController {
 					rentalForm.getInfo()
 					);
 			deviceService.setAvailability(rentalForm.getSerial_number(), false);
+			redirectAttributes.addFlashAttribute("message", "貸出登録しました");
+			redirectAttributes.addFlashAttribute("alertType", "alert-success");
+			return "redirect:rental_list";
 		}
-		return("redirect:rental_list");
+		return "redirect:rental_list";
 	}
 	
 	@PostMapping("editRental")
-	public String editRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result){
+	public String editRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result, RedirectAttributes redirectAttributes){
 		if(result.hasErrors()) {
 			return "rental_list";
 		}
@@ -109,18 +116,21 @@ public class RentalController {
 					rentalForm.getRental_date(),
 					rentalForm.getReturn_date(),
 					rentalForm.getInfo());
+			redirectAttributes.addFlashAttribute("message", "貸出情報を編集しました");
+			redirectAttributes.addFlashAttribute("alertType", "alert-primary");
+			return("redirect:rental_list");
 		}
-	
-	return("redirect:rental_list");
-
+		return("redirect:rental_list");
 	}
 	
 	@PostMapping("returnRental")
-	public String returnRental(@RequestParam("serial_number") String serial_number) {
+	public String returnRental(@RequestParam("serial_number") String serial_number, RedirectAttributes redirectAttributes) {
 		Optional<Device> optionalDevice = deviceService.findById(serial_number);
 		Optional<Rental> optionalRental = rentalService.findById(serial_number);
 		if(optionalDevice.isPresent() && optionalRental.isPresent()) {
 			rentalService.delete(serial_number);
+			redirectAttributes.addFlashAttribute("message", "機器を返却しました");
+			redirectAttributes.addFlashAttribute("alertType", "alert-success");
 			return("redirect:rental_list");
 		}
 		return("redirect:rental_list");

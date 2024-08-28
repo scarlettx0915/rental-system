@@ -10,7 +10,7 @@
     <header th:replace="~{common/header}">Header</header>
     <div class="container">
       <h2 class="title">機器一覧</h2>
-      <div class="register-button-container">
+      <div class="top-right-button-container">
         <a th:href="@{/device_register}">
           <button
             type="button"
@@ -19,6 +19,9 @@
             機器登録
           </button>
         </a>
+      </div>
+      <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
+      <span th:text="${message}"></span>
       </div>
       <div class="table-container">
         <table class="table table-striped">
@@ -58,7 +61,11 @@
               <td th:text="${device.maker}"></td>
               <td th:text="${device.operating_system}"></td>
               <td>
-                <input type="checkbox" class="form-check-input" disabled th:checked="${device.gpu}" />
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  disabled
+                  th:checked="${device.gpu}" />
               </td>
               <td>
                 <img
@@ -75,12 +82,14 @@
                   height="30" />
               </td>
               <td th:text="${device.location}"></td>
-              <td><img
+              <td>
+                <img
                   th:if="${device.malfunction}"
                   th:src="@{/wrench.png}"
                   alt="Image 3"
                   width="30"
-                  height="30" /></td>
+                  height="30" />
+              </td>
               <td>
                 <a th:href="@{/device_info(id=${device.serial_number})}">
                   <button type="button" class="btn btn-outline-primary btn-sm">

@@ -124,7 +124,7 @@
               th:value="${user.retire_date}" />
           </div>
 
-          <div class="form-label-group mb-3">
+          <div class="form-label-group mb-5">
             <label for="account_level">権限レベル</label>
             <div>
               <input
@@ -144,17 +144,20 @@
             </div>
           </div>
 
-          <!-- Submit and Reset buttons -->
-          <div class="form-group mb-3">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-            <input type="reset" value="Reset" class="btn btn-secondary" />
+          <!-- Submit and Return buttons -->
+          <div class="form-group mb-3 text-center">
+            <a
+              th:href="@{/user_info(id=${user.employee_no})}"
+              class="btn btn-outline-primary">
+              戻る
+            </a>
+            <input type="submit" value="確定" class="btn btn-primary" />
           </div>
         </form>
 
-        <!-- Delete button in a separate form -->
         <form action="deleteUser" method="post" class="form-group">
-          <div>
-            <input type="submit" value="Delete" class="btn btn-danger" />
+          <div class="text-center mb-5">
+            <input type="submit" value="削除" class="btn btn-danger" />
             <input
               type="hidden"
               name="employee_no"

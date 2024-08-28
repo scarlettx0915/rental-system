@@ -11,14 +11,24 @@
     <div class="container">
       <h2 class="title">機器登録</h2>
       <div class="container mx-auto" style="width: 400px">
-        <form action="addDevice" method="post">
+      <!--  alert message box-->
+      <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
+      <span th:text="${message}"></span>
+      </div>
+      <table>
+        <tr th:if="${validationError}" th:each="error : ${validationError}">
+            <td style="color: red;" th:text="${error}"></td>
+        </tr>
+    </table>
+        <form th:action="@{/addDevice}" th:object="${deviceForm}" method="post">
           <div class="form-label-group mb-3">
             <label for="serial_number">資産番号</label>
             <input
               type="text"
-              id=""
+              id="serial_number"
               name="serial_number"
-              class="form-control" />
+              class="form-control"
+               />
           </div>
           <div class="form-label-group mb-3">
             <label for="maker">メーカー</label>
@@ -108,9 +118,13 @@
               height="100%"></textarea>
           </div>
 
-          <div class="form-group mb-3">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-            <input type="reset" value="Reset" class="btn btn-secondary" />
+          <div class="form-group mb-3 text-center">
+            <a
+              th:href="@{/device_list}"
+              class="btn btn-outline-primary">
+              戻る
+            </a>
+            <input type="submit" value="確定" class="btn btn-primary" />
           </div>
         </form>
       </div>

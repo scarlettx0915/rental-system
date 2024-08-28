@@ -121,7 +121,7 @@
               class="form-control"
               th:value="${device.lease_end_date}" />
           </div>
-          <div class="form-label-group">
+          <div class="form-label-group mb-3">
             <label for="inventory_date">棚卸日</label>
             <input
               type="date"
@@ -142,15 +142,19 @@
               th:text="${device.info}"></textarea>
           </div>
           <!-- Submit and Reset buttons -->
-          <div class="form-group mb-3">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-            <input type="reset" value="Reset" class="btn btn-secondary" />
+          <div class="form-group mb-3 text-center">
+            <a
+              th:href="@{/device_info(id=${device.serial_number})}"
+              class="btn btn-outline-primary">
+              戻る
+            </a>
+            <input type="submit" value="確定" class="btn btn-primary" />
           </div>
         </form>
 
         <form action="deleteDevice" method="post" class="form-group">
-          <div>
-            <input type="submit" value="Delete" class="btn btn-danger" />
+          <div class="text-center mb-5">
+            <input type="submit" value="削除" class="btn btn-danger" />
             <input
               type="hidden"
               name="serial_number"

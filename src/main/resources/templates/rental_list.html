@@ -10,7 +10,7 @@
     <header th:replace="~{common/header}">Header</header>
     <div class="container">
       <h2 class="title">貸出一覧</h2>
-      <div class="register-button-container">
+      <div class="top-right-button-container">
         <a href="/">
           <button
             type="button"
@@ -19,6 +19,9 @@
             貸出履歴
           </button>
         </a>
+      </div>
+      <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
+      <span th:text="${message}"></span>
       </div>
       <div class="table-container">
         <table class="table table-striped">

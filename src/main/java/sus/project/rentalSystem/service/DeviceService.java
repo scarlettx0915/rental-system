@@ -36,6 +36,9 @@ public class DeviceService {
 		device.setCapacity(capacity);
 		device.setGpu(gpu);
 		device.setLocation(location);
+		device.setLease_start_date(Optional.ofNullable(lease_start_date).filter(s -> !s.isEmpty()).orElse(null));
+		device.setLease_end_date(Optional.ofNullable(lease_end_date).filter(s -> !s.isEmpty()).orElse(null));
+		device.setInventory_date(Optional.ofNullable(inventory_date).filter(s -> !s.isEmpty()).orElse(null));
 		device.setInfo(info);
 		device.setRegister_date(LocalDate.now().toString());
 		deviceRepository.save(device);

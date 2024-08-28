@@ -10,10 +10,25 @@
     <header th:replace="~{common/header}">Header</header>
     <div class="container">
       <h2 class="title">機器詳細</h2>
+      <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
+      <span th:text="${message}"></span>
+      </div>
       <div class="container mx-auto" style="width: 400px">
         <div class="mb-3">
           資産番号:
-          <span th:text="${device.serial_number}"></span>
+          <span th:text="${device.serial_number}" class="me-3"></span>
+          <span th:if="${device.available}">
+            <a
+              th:href="@{/rental_register(id=${device.serial_number})}"
+              class="btn btn-primary">
+              貸出登録
+            </a>
+          </span>
+          <span th:unless="${device.available}">
+            <button type="button" class="btn btn-secondary" disabled>
+              貸出登録
+            </button>
+          </span>
         </div>
         <div class="mb-3">
           メーカー:
@@ -60,7 +75,7 @@
               alt="Image 3"
               width="25"
               height="25" />
-              故障中
+            故障中
           </span>
         </div>
         <div class="mb-3">
@@ -76,31 +91,22 @@
           <span th:text="${device.register_date}"></span>
         </div>
         <div class="mb-3">
-          更新日: 
+          更新日:
           <span th:text="${device.update_date}"></span>
         </div>
         <div class="mb-3">
-          棚卸日: 
+          棚卸日:
           <span th:text="${device.inventory_date}"></span>
         </div>
 
-        <span th:if="${device.available}">
+        <div class="form-group">
+          <a th:href="@{/device_list}" class="btn btn-outline-primary">戻る</a>
           <a
-            th:href="@{/rental_register(id=${device.serial_number})}"
+            th:href="@{/device_edit(id=${device.serial_number})}"
             class="btn btn-primary">
-            貸出登録
+            編集
           </a>
-        </span>
-        <span th:unless="${device.available}">
-          <button type="button" class="btn btn-secondary" disabled>
-            貸出登録
-          </button>
-        </span>
-        <span>
-          <a th:href="@{/device_edit(id=${device.serial_number})}">
-            <button type="button" class="btn btn-primary">編集</button>
-          </a>
-        </span>
+        </div>
       </div>
     </div>
   </body>

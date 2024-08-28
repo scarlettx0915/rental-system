@@ -1,10 +1,12 @@
 package sus.project.rentalSystem.form;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class DeviceForm {
 
-	@NotNull
+	@NotBlank(message = "資産番号を入力してください")
+    @Size(max = 10, message = "10文字以内入力してください")
 	private String serial_number;
 	private String maker;
 	private String operating_system;

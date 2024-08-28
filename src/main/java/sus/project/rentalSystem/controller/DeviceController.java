@@ -1,15 +1,19 @@
 package sus.project.rentalSystem.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import sus.project.rentalSystem.entity.Device;
@@ -54,14 +58,22 @@ public class DeviceController {
 	}
 	
 	@PostMapping("addDevice")
-	public String addDevice(@Valid @ModelAttribute DeviceForm deviceForm, BindingResult result) {
+	public String addDevice(@Valid @ModelAttribute("deviceForm") DeviceForm deviceForm, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+		List<String> errorList = new ArrayList<String>();
 		if(result.hasErrors()) {
+            for (ObjectError error : result.getAllErrors()) {
+                errorList.add(error.getDefaultMessage());
+            }
+            model.addAttribute("validationError", errorList);
 			return "device_register";
 		}
 		Optional<Device> device = deviceService.findById(deviceForm.getSerial_number());
 		if(device.isPresent()) {
 			//if device exists display message
-			return "device_register";
+			redirectAttributes.addFlashAttribute("message", "資産番号が存在しています");
+			redirectAttributes.addFlashAttribute("alertType", "alert-warning");
+			redirectAttributes.addFlashAttribute("deviceForm", deviceForm);
+			return "redirect:device_register";
 		}
 
 		deviceService.save(
@@ -75,6 +87,8 @@ public class DeviceController {
 				deviceForm.getLease_end_date(), 
 				deviceForm.getInventory_date(), 
 				deviceForm.getInfo());
+		redirectAttributes.addFlashAttribute("message", "機器を登録しました");
+		redirectAttributes.addFlashAttribute("alertType", "alert-success");
 		return("redirect:device_list");
 	}
 	
@@ -104,10 +118,19 @@ public class DeviceController {
 	}
 	
 	@PostMapping("deleteDevice")
-	public String deleteDevice(@RequestParam("serial_number") String serial_number) {
-		Optional<Device> device = deviceService.findById(serial_number);
-		if(device.isPresent()) {
+	public String deleteDevice(@RequestParam("serial_number") String serial_number, RedirectAttributes redirectAttributes) {
+		Optional<Device> optionalDevice = deviceService.findById(serial_number);
+		if(optionalDevice.isPresent()) {
+			Device device = optionalDevice.get();
+			if(!device.isAvailable()) {
+				//if in rental then refuse to delete
+				redirectAttributes.addFlashAttribute("message", "貸出中のため削除できません");
+				redirectAttributes.addFlashAttribute("alertType", "alert-danger");
+				return "redirect:/device_info?id=" + device.getSerial_number();
+			}
 			deviceService.delete(serial_number);
+			redirectAttributes.addFlashAttribute("message", "機器を削除しました");
+			redirectAttributes.addFlashAttribute("alertType", "alert-warning");
 			return("redirect:device_list");
 		}
 		return("redirect:device_list");
