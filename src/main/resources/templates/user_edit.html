@@ -8,158 +8,160 @@
 
   <body>
     <header th:replace="~{common/header}">Header</header>
-    <div class="container mt-4">
-      <h2 class="title mb-4">社員編集</h2>
-      <form th:action="@{/editUser}" th:object="${userForm}" method="post">
-        <div class="form-label-group mb-3">
-          <label for="employee_no">社員番号</label>
-          <span
-            id="employee_no"
-            name="employee_no"
-            th:text="${user.employee_no}"></span>
-          <input
-            type="hidden"
-            name="employee_no"
-            th:value="${user.employee_no}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="name">氏名</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            class="form-control"
-            th:value="${user.name}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="name_kana">氏名（カタカナ）</label>
-          <input
-            type="text"
-            id="name_kana"
-            name="name_kana"
-            class="form-control"
-            th:value="${user.name_kana}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="department">所属部署</label>
-          <input
-            type="text"
-            id="department"
-            name="department"
-            class="form-control"
-            th:value="${user.department}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="tel_no">電話番号</label>
-          <input
-            type="text"
-            id="tel_no"
-            name="tel_no"
-            class="form-control"
-            th:value="${user.tel_no}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="mail_address">メールアドレス</label>
-          <input
-            type="text"
-            id="mail_address"
-            name="mail_address"
-            class="form-control"
-            th:value="${user.mail_address}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="age">年齢</label>
-          <input
-            type="text"
-            id="age"
-            name="age"
-            class="form-control"
-            th:value="${user.age}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="gender">性別:</label>
-          <div>
+    <div class="container">
+      <h2 class="title">社員編集</h2>
+      <div class="container mx-auto" style="width: 400px">
+        <form th:action="@{/editUser}" th:object="${userForm}" method="post">
+          <div class="form-label-group mb-3">
+            <label for="employee_no">社員番号</label>
+            <span
+              id="employee_no"
+              name="employee_no"
+              th:text="${user.employee_no}"></span>
             <input
-              type="radio"
-              id="radioA"
-              name="gender"
-              value="0"
-              th:checked="${user.gender == '0'}" />
-            <label for="radioA">男</label>
-            <input
-              type="radio"
-              id="radioB"
-              name="gender"
-              value="1"
-              th:checked="${user.gender == '1'}" />
-            <label for="radioB">女</label>
+              type="hidden"
+              name="employee_no"
+              th:value="${user.employee_no}" />
           </div>
-        </div>
 
-        <div class="form-label-group mb-3">
-          <label for="position">役職</label>
-          <input
-            type="text"
-            id="position"
-            name="position"
-            class="form-control"
-            th:value="${user.position}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="retire_date">退職日</label>
-          <input
-            type="date"
-            id="retire_date"
-            name="retire_date"
-            class="form-control"
-            th:value="${user.retire_date}" />
-        </div>
-
-        <div class="form-label-group mb-3">
-          <label for="account_level">権限レベル</label>
-          <div>
+          <div class="form-label-group mb-3">
+            <label for="name">氏名</label>
             <input
-              type="radio"
-              id="radioAdmin"
-              name="account_level"
-              value="管理者"
-              th:checked="${user.account_level == '管理者'}" />
-            <label for="radioAdmin">管理者</label>
-            <input
-              type="radio"
-              id="radioUser"
-              name="account_level"
-              value="利用者"
-              th:checked="${user.account_level == '利用者'}" />
-            <label for="radioUser">利用者</label>
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              th:value="${user.name}" />
           </div>
-        </div>
 
-        <!-- Submit and Reset buttons -->
-        <div class="form-group mb-3">
-          <input type="submit" value="Submit" class="btn btn-primary" />
-          <input type="reset" value="Reset" class="btn btn-secondary" />
-        </div>
-      </form>
+          <div class="form-label-group mb-3">
+            <label for="name_kana">氏名（カタカナ）</label>
+            <input
+              type="text"
+              id="name_kana"
+              name="name_kana"
+              class="form-control"
+              th:value="${user.name_kana}" />
+          </div>
 
-      <!-- Delete button in a separate form -->
-      <form action="deleteUser" method="post" class="form-group">
-        <div>
-          <input type="submit" value="Delete" class="btn btn-danger" />
-          <input
-            type="hidden"
-            name="employee_no"
-            th:value="${user.employee_no}" />
-        </div>
-      </form>
+          <div class="form-label-group mb-3">
+            <label for="department">所属部署</label>
+            <input
+              type="text"
+              id="department"
+              name="department"
+              class="form-control"
+              th:value="${user.department}" />
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="tel_no">電話番号</label>
+            <input
+              type="text"
+              id="tel_no"
+              name="tel_no"
+              class="form-control"
+              th:value="${user.tel_no}" />
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="mail_address">メールアドレス</label>
+            <input
+              type="text"
+              id="mail_address"
+              name="mail_address"
+              class="form-control"
+              th:value="${user.mail_address}" />
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="age">年齢</label>
+            <input
+              type="text"
+              id="age"
+              name="age"
+              class="form-control"
+              th:value="${user.age}" />
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="gender">性別:</label>
+            <div>
+              <input
+                type="radio"
+                id="radioA"
+                name="gender"
+                value="0"
+                th:checked="${user.gender == '0'}" />
+              <label for="radioA">男</label>
+              <input
+                type="radio"
+                id="radioB"
+                name="gender"
+                value="1"
+                th:checked="${user.gender == '1'}" />
+              <label for="radioB">女</label>
+            </div>
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="position">役職</label>
+            <input
+              type="text"
+              id="position"
+              name="position"
+              class="form-control"
+              th:value="${user.position}" />
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="retire_date">退職日</label>
+            <input
+              type="date"
+              id="retire_date"
+              name="retire_date"
+              class="form-control"
+              th:value="${user.retire_date}" />
+          </div>
+
+          <div class="form-label-group mb-3">
+            <label for="account_level">権限レベル</label>
+            <div>
+              <input
+                type="radio"
+                id="radioAdmin"
+                name="account_level"
+                value="管理者"
+                th:checked="${user.account_level == '管理者'}" />
+              <label for="radioAdmin">管理者</label>
+              <input
+                type="radio"
+                id="radioUser"
+                name="account_level"
+                value="利用者"
+                th:checked="${user.account_level == '利用者'}" />
+              <label for="radioUser">利用者</label>
+            </div>
+          </div>
+
+          <!-- Submit and Reset buttons -->
+          <div class="form-group mb-3">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-secondary" />
+          </div>
+        </form>
+
+        <!-- Delete button in a separate form -->
+        <form action="deleteUser" method="post" class="form-group">
+          <div>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <input
+              type="hidden"
+              name="employee_no"
+              th:value="${user.employee_no}" />
+          </div>
+        </form>
+      </div>
     </div>
   </body>
 </html>

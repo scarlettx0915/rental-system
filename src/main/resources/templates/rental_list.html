@@ -49,15 +49,23 @@
                   </div>
                 </form>
               </td>
-              <td th:text="${rental.serial_number}"></td>
-              <td th:text="${rental.employee_no}"></td>
+              <td>
+                <a th:href="@{/device_info(id=${rental.serial_number})}">
+                  <span th:text="${rental.serial_number}"></span>
+                </a>
+              </td>
+              <td>
+                <a th:href="@{/user_info(id=${rental.employee_no})}">
+                  <span th:text="${rental.employee_no}"></span>
+                </a>
+              </td>
               <td th:text="${rental.employee_name}"></td>
               <td th:text="${rental.rental_date}"></td>
               <td th:text="${rental.return_date}"></td>
               <td>
-                <a th:href="@{/rental_info(id=${rental.serial_number})}">
+                <a th:href="@{/rental_edit(id=${rental.serial_number})}">
                   <button type="button" class="btn btn-outline-primary btn-sm">
-                    詳細
+                    編集
                   </button>
                 </a>
               </td>

@@ -2,104 +2,106 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <th:block th:replace="~{common/scripts}"></th:block>
     <title>機器詳細</title>
+    <th:block th:replace="~{common/scripts}"></th:block>
   </head>
 
   <body>
     <header th:replace="~{common/header}">Header</header>
     <div class="container">
       <h2 class="title">機器詳細</h2>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <div>
-            資産番号
-            <span th:text="${device.serial_number}"></span>
-          </div>
-          <div>
-            メーカー
-            <span th:text="${device.maker}"></span>
-          </div>
-          <div>
-            OS
-            <span th:text="${device.operating_system}"></span>
-          </div>
-          <div>
-            メモリ
-            <span th:text="${device.memory}"></span>
-          </div>
-          <div>
-            容量
-            <span th:text="${device.capacity}"></span>
-          </div>
-          <div>
-            グラフィックボード
-            <span>
-              <input type="checkbox" disabled th:checked="${device.gpu}" />
-            </span>
-          </div>
-          <div>
-            保管場所
-            <span th:text="${device.location}"></span>
-          </div>
-          <div>
-            空き
-            <span>
-              <input
-                type="checkbox"
-                disabled
-                th:checked="${device.available}" />
-            </span>
-          </div>
-          <div>
-            故障中
-            <span>
-              <input
-                type="checkbox"
-                disabled
-                th:checked="${device.malfunction}" />
-            </span>
-          </div>
-          <div>
-            リース開始日
-            <span th:text="${device.lease_start_date}"></span>
-          </div>
-          <div>
-            リース期限日
-            <span th:text="${device.lease_end_date}"></span>
-          </div>
-          <div>
-            登録日　
-            <span th:text="${device.register_date}"></span>
-          </div>
-          <div>
-            更新日
-            <span th:text="${device.update_date}"></span>
-          </div>
-          <div>
-            棚卸日
-            <span th:text="${device.inventory_date}"></span>
-          </div>
-          <div>
-            備考
-            <span th:text="${device.info}"></span>
-          </div>
+      <div class="container mx-auto" style="width: 400px">
+        <div class="mb-3">
+          資産番号:
+          <span th:text="${device.serial_number}"></span>
         </div>
+        <div class="mb-3">
+          メーカー:
+          <span th:text="${device.maker}"></span>
+        </div>
+        <div class="mb-3">
+          OS:
+          <span th:text="${device.operating_system}"></span>
+        </div>
+        <div class="mb-3">
+          メモリ:
+          <span th:text="${device.memory}"></span>
+        </div>
+        <div class="mb-3">
+          容量:
+          <span th:text="${device.capacity}"></span>
+        </div>
+        <div class="mb-3">
+          グラフィックボード:
+          <input type="checkbox" checked="${device.gpu}" disabled />
+        </div>
+        <div class="mb-3">
+          保管場所:
+          <span th:text="${device.location}"></span>
+        </div>
+        <div class="mb-3">
+          空き:
+          <span th:if="${device.available}">
+            <img th:src="@{/check.png}" alt="Image 1" width="25" height="25" />
+            貸出可能
+          </span>
+          <span th:unless="${device.available}">
+            <img th:src="@{/minus.png}" alt="Image 2" width="25" height="25" />
+            貸出中
+          </span>
+        </div>
+        <div class="mb-3">
+          故障状況:
+          <span th:unless="${device.malfunction}">故障無し</span>
+          <span th:if="${device.malfunction}">
+            <img
+              th:if="${device.malfunction}"
+              th:src="@{/wrench.png}"
+              alt="Image 3"
+              width="25"
+              height="25" />
+              故障中
+          </span>
+        </div>
+        <div class="mb-3">
+          リース開始日:
+          <span th:text="${device.lease_start_date}"></span>
+        </div>
+        <div class="mb-3">
+          リース期限日:
+          <span th:text="${device.lease_end_date}"></span>
+        </div>
+        <div class="mb-3">
+          登録日:
+          <span th:text="${device.register_date}"></span>
+        </div>
+        <div class="mb-3">
+          更新日: 
+          <span th:text="${device.update_date}"></span>
+        </div>
+        <div class="mb-3">
+          棚卸日: 
+          <span th:text="${device.inventory_date}"></span>
+        </div>
+
+        <span th:if="${device.available}">
+          <a
+            th:href="@{/rental_register(id=${device.serial_number})}"
+            class="btn btn-primary">
+            貸出登録
+          </a>
+        </span>
+        <span th:unless="${device.available}">
+          <button type="button" class="btn btn-secondary" disabled>
+            貸出登録
+          </button>
+        </span>
+        <span>
+          <a th:href="@{/device_edit(id=${device.serial_number})}">
+            <button type="button" class="btn btn-primary">編集</button>
+          </a>
+        </span>
       </div>
-
-      <span th:if="${device.available}">
-        <a
-          th:href="@{/rental_register(id=${device.serial_number})}"
-          class="btn btn-primary">
-          貸出登録
-        </a>
-      </span>
-
-      <span>
-        <a th:href="@{/device_edit(id=${device.serial_number})}">
-          <button type="button" class="btn btn-primary">編集</button>
-        </a>
-      </span>
     </div>
   </body>
 </html>

@@ -58,12 +58,29 @@
               <td th:text="${device.maker}"></td>
               <td th:text="${device.operating_system}"></td>
               <td>
-                <input type="checkbox" disabled th:checked="${device.gpu}" />
+                <input type="checkbox" class="form-check-input" disabled th:checked="${device.gpu}" />
               </td>
-              <td th:text="${device.available}"></td>
+              <td>
+                <img
+                  th:if="${device.available}"
+                  th:src="@{/check.png}"
+                  alt="Image 1"
+                  width="30"
+                  height="30" />
+                <img
+                  th:unless="${device.available}"
+                  th:src="@{/minus.png}"
+                  alt="Image 2"
+                  width="30"
+                  height="30" />
+              </td>
               <td th:text="${device.location}"></td>
-              <td th:text="${device.malfunction}"></td>
-
+              <td><img
+                  th:if="${device.malfunction}"
+                  th:src="@{/wrench.png}"
+                  alt="Image 3"
+                  width="30"
+                  height="30" /></td>
               <td>
                 <a th:href="@{/device_info(id=${device.serial_number})}">
                   <button type="button" class="btn btn-outline-primary btn-sm">
