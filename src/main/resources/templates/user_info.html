@@ -11,6 +11,9 @@
     <div class="container">
       <h2 class="title">社員詳細</h2>
       <div class="container mx-auto" style="width: 400px">
+      <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
+      <span th:text="${message}"></span>
+      </div>
         <div class="mb-3">
           社員番号:
           <span th:text="${user.employee_no}"></span>
@@ -42,7 +45,7 @@
         <div class="mb-3">
           性別:
           <span
-            th:text="${user.gender == '1' ? '女' : (user.gender == '0' ? '男' : 'Unknown')}"></span>
+            th:text="${user.gender == '1' ? '女' : (user.gender == '0' ? '男' : '無回答')}"></span>
         </div>
         <div class="mb-3">
           役職:

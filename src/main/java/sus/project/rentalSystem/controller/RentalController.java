@@ -1,11 +1,15 @@
 package sus.project.rentalSystem.controller;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,7 @@ import sus.project.rentalSystem.entity.Device;
 import sus.project.rentalSystem.entity.Rental;
 import sus.project.rentalSystem.entity.User;
 import sus.project.rentalSystem.form.RentalForm;
+import sus.project.rentalSystem.form.UserForm;
 import sus.project.rentalSystem.service.DeviceService;
 import sus.project.rentalSystem.service.RentalService;
 import sus.project.rentalSystem.service.UserService;
@@ -34,6 +39,8 @@ public class RentalController {
 	@GetMapping("/rental_list")
 	public String rental_list(Model model) {
 		model.addAttribute("rentals", rentalService.findAll(true));
+		LocalDate today = LocalDate.now();
+		model.addAttribute("today", today);
 		return "rental_list";
 	}
 	
@@ -52,6 +59,9 @@ public class RentalController {
 	public String rental_register(@RequestParam("id")String id, Model model) {
 		model.addAttribute("serial_number",id);
 		model.addAttribute("users", userService.findAll(true));
+		if (!model.containsAttribute("rentalForm")) {
+	        model.addAttribute("rentalForm", new RentalForm());
+	    }
 		return "rental_register";
 	}
 	
@@ -68,8 +78,13 @@ public class RentalController {
 	@PostMapping("addRental")
 	public String addRental(@Valid @ModelAttribute RentalForm rentalForm, BindingResult result, RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
-			System.out.println(result.getAllErrors());
-			return "rental_register";
+			List<String> errorList = result.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+			 redirectAttributes.addFlashAttribute("validationErrors", errorList);
+			 redirectAttributes.addFlashAttribute("rentalForm", rentalForm);
+			 
+			return ("redirect:rental_register?id=" + rentalForm.getSerial_number());
 		}
 		
 		Optional<Rental> optionalRental = rentalService.findById(rentalForm.getSerial_number());

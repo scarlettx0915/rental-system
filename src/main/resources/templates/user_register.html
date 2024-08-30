@@ -1,86 +1,156 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>社員登録</title>
+    <th:block th:replace="~{common/scripts}"></th:block>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>社員登録</title>
-  <th:block th:replace="~{common/scripts}"></th:block>
-</head>
-
-<body>
-  <header th:replace="~{common/header}">Header</header>
-  <div class="container">
-    <h2 class="title">社員登録</h2>
-    <div class="container mx-auto" style="width: 400px">
-      <form th:action="@{/addUser}" th:object="${userForm}" method="post">
-        <div class="form-label-group mb-3">
-          <label for="employee_no">社員番号</label>
-          <input type="text" id="employee_no" name="employee_no" class="form-control" />
+  <body>
+    <header th:replace="~{common/header}">Header</header>
+    <div class="container">
+      <h2 class="title">社員登録</h2>
+      <div class="container mx-auto" style="width: 400px">
+        <!--  alert message box-->
+        <div
+          th:if="${message}"
+          th:class="'message-container alert ' + ${alertType}">
+          <span th:text="${message}"></span>
         </div>
-
-        <div class="form-label-group mb-3">
-          <label for="name">氏名</label>
-          <input type="text" id="name" name="name" class="form-control" />
+        <div th:if="${validationErrors}">
+          <ul style="list-style-type: none" class="alert alert-danger">
+            <li th:each="error : ${validationErrors}" th:text="${error}"></li>
+          </ul>
         </div>
+        <form th:action="@{/addUser}" th:object="${userForm}" method="post">
+          <div class="form-label-group mb-3">
+            <label for="employee_no">
+              社員番号
+              <span style="color: red">*</span>
+            </label>
+            <input
+              type="text"
+              id="employee_no"
+              name="employee_no"
+              class="form-control"
+              th:field="*{employee_no}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="name_kana">氏名（カタカナ）</label>
-          <input type="text" id="name_kana" name="name_kana" class="form-control" />
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="name">
+              氏名
+              <span style="color: red">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              th:field="*{name}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="department">所属部署</label>
-          <input type="text" id="department" name="department" class="form-control" />
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="name_kana">氏名（カタカナ）</label>
+            <input
+              type="text"
+              id="name_kana"
+              name="name_kana"
+              class="form-control"
+              th:field="*{name_kana}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="tel_no">電話番号</label>
-          <input type="text" id="tel_no" name="tel_no" class="form-control" />
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="department">所属部署</label>
+            <input
+              type="text"
+              id="department"
+              name="department"
+              class="form-control"
+              th:field="*{department}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="mail_address">メールアドレス</label>
-          <input type="text" id="mail_address" name="mail_address" class="form-control" />
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="tel_no">電話番号</label>
+            <input
+              type="text"
+              id="tel_no"
+              name="tel_no"
+              class="form-control"
+              th:field="*{tel_no}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="age">年齢</label>
-          <input type="text" id="age" name="age" class="form-control" />
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="mail_address">メールアドレス</label>
+            <input
+              type="text"
+              id="mail_address"
+              name="mail_address"
+              class="form-control"
+              th:field="*{mail_address}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="gender">性別:</label>
-          <input type="radio" id="radioA" name="gender" value="0" />
-          <label for="radioA">男</label>
-          <input type="radio" id="radioB" name="gender" value="1" />
-          <label for="radioB">女</label>
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="age">年齢</label>
+            <input
+              type="text"
+              id="age"
+              name="age"
+              class="form-control"
+              th:field="*{age}" />
+          </div>
 
-        <div class="form-label-group mb-3">
-          <label for="position">役職</label>
-          <input type="text" id="position" name="position" class="form-control" />
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="gender">性別:</label>
+            <input
+              type="radio"
+              id="radioA"
+              name="gender"
+              value="0"
+              th:field="*{gender}" />
+            <label for="radioA">男</label>
+            <input
+              type="radio"
+              id="radioB"
+              name="gender"
+              value="1"
+              th:field="*{gender}" />
+            <label for="radioB">女</label>
+          </div>
 
-        <div class="form-label-group mb-5">
-          <label for="account_level">権限レベル</label>
-          <input type="radio" id="radioA" name="account_level" value="管理者" />
-          <label for="radioA">管理者</label>
-          <input type="radio" id="radioB" name="account_level" value="利用者" />
-          <label for="radioB">利用者</label>
-        </div>
+          <div class="form-label-group mb-3">
+            <label for="position">役職</label>
+            <input
+              type="text"
+              id="position"
+              name="position"
+              class="form-control"
+              th:field="*{position}" />
+          </div>
+
+          <div class="form-label-group mb-5">
+            <label for="account_level">権限レベル</label>
+            <input
+              type="radio"
+              id="radioA"
+              name="account_level"
+              value="管理者"
+              th:field="*{account_level}" />
+            <label for="radioA">管理者</label>
+            <input
+              type="radio"
+              id="radioB"
+              name="account_level"
+              value="利用者"
+              th:field="*{account_level}" />
+            <label for="radioB">利用者</label>
+          </div>
+
+          <div class="form-group mb-3 text-center">
+            <a th:href="@{/user_list}" class="btn btn-outline-primary">取消</a>
+            <input type="submit" value="確定" class="btn btn-primary" />
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="form-group mb-3 text-center">
-      <a
-        th:href="@{/user_list}"
-        class="btn btn-outline-primary">
-        取消
-      </a>
-      <input type="submit" value="確定" class="btn btn-primary" />
-    </div>
-    </form>
-  </div>
-  </div>
-</body>
-
+  </body>
 </html>

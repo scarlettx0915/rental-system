@@ -11,6 +11,11 @@
     <div class="container">
       <h2 class="title">機器編集</h2>
       <div class="container mx-auto" style="width: 400px">
+      <div th:if="${validationErrors}">
+        	<ul class="alert alert-danger" >
+            	<li th:each="error : ${validationErrors}" th:text="${error}"></li>
+        	</ul>
+    	</div>
         <form action="editDevice" method="post">
           <div class="form-label-group mb-3">
             資産番号

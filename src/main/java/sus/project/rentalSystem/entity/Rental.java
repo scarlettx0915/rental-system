@@ -1,5 +1,8 @@
 package sus.project.rentalSystem.entity;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,7 +22,7 @@ public class Rental {
 	@Column
 	private String rental_date;
 	@Column
-	private String return_date;
+	private LocalDate return_date;
 	@Column
 	private String info;
 
@@ -48,10 +51,10 @@ public class Rental {
 	public void setRental_date(String rental_date) {
 		this.rental_date = rental_date;
 	}
-	public String getReturn_date() {
+	public LocalDate getReturn_date() {
 		return return_date;
 	}
-	public void setReturn_date(String return_date) {
+	public void setReturn_date(LocalDate return_date) {
 		this.return_date = return_date;
 	}
 	public String getInfo() {

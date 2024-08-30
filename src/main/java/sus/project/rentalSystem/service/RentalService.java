@@ -1,5 +1,6 @@
 package sus.project.rentalSystem.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,12 @@ public class RentalService {
 		return rentalRepository.findById(serial_number);
 	}
 	
+	public boolean isEmployeeNoExists(String employee_no) {
+        return rentalRepository.existsByEmployee_no(employee_no);
+    }
+	
 	public void save(String serial_number, String employee_no, String employee_name, String rental_date,
-			String return_date, String info) {
+			LocalDate return_date, String info) {
 		Rental rental = new Rental();
 		rental.setSerial_number(serial_number);
 		rental.setEmployee_no(employee_no);

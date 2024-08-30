@@ -11,17 +11,13 @@
     <div class="container">
       <h2 class="title">貸出一覧</h2>
       <div class="top-right-button-container">
-        <a href="/">
-          <button
-            type="button"
-            id=""
-            class="btn btn-primary btn-sm top-right-button">
-            貸出履歴
-          </button>
-        </a>
+        
+
       </div>
-      <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
-      <span th:text="${message}"></span>
+      <div
+        th:if="${message}"
+        th:class="'message-container alert ' + ${alertType}">
+        <span th:text="${message}"></span>
       </div>
       <div class="table-container">
         <table class="table table-striped">
@@ -64,7 +60,14 @@
               </td>
               <td th:text="${rental.employee_name}"></td>
               <td th:text="${rental.rental_date}"></td>
-              <td th:text="${rental.return_date}"></td>
+     <!--         <td th:text="${rental.return_date}"
+                th:if="${rental.return_date.before(#dates.createNow())}" style="color:red">
+            </td>
+            <td th:text="${rental.return_date}"
+                th:if="${rental.return_date.after(#dates.createNow())}">
+            </td> -->
+                <td th:text="${rental.return_date}"th:classappend="${rental.return_date.isBefore(today) ? 'text-danger' : ''}"></td>
+              
               <td>
                 <a th:href="@{/rental_edit(id=${rental.serial_number})}">
                   <button type="button" class="btn btn-outline-primary btn-sm">

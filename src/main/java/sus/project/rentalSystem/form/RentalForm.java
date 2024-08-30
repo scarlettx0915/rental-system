@@ -1,13 +1,23 @@
 package sus.project.rentalSystem.form;
 
+import java.time.LocalDate;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class RentalForm {
 
 	private String serial_number;
+	@NotBlank(message="社員を選択してください")
 	private String employee_no;
 	private String employee_name;
+	@NotBlank(message="貸出日を選択してください")
 	private String rental_date;
-	private String return_date;
+	@NotNull(message="返却予定日を選択してください")
+	private LocalDate return_date;
 	private String info;
+	
+	
 	public String getSerial_number() {
 		return serial_number;
 	}
@@ -32,10 +42,10 @@ public class RentalForm {
 	public void setRental_date(String rental_date) {
 		this.rental_date = rental_date;
 	}
-	public String getReturn_date() {
+	public LocalDate getReturn_date() {
 		return return_date;
 	}
-	public void setReturn_date(String return_date) {
+	public void setReturn_date(LocalDate return_date) {
 		this.return_date = return_date;
 	}
 	public String getInfo() {

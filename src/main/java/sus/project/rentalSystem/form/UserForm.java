@@ -1,13 +1,25 @@
 package sus.project.rentalSystem.form;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+
 public class UserForm {
 
+	@NotBlank(message = "社員番号を入力してください")
+    @Size(max = 20, message = "社員番号は20文字以内入力してください")
 	private String employee_no;
+	@NotBlank(message = "氏名を入力してください")
+	@Size(max = 20, message = "氏名は20文字以内入力してください")
 	private String name;
 	private String name_kana;
 	private String department;
+	@PositiveOrZero(message="正しい電話番号を入力してください")
 	private String tel_no;
+	@Email(message="正しいメールアドレスを入力してください")
 	private String mail_address;
+	@PositiveOrZero(message="正しい年齢を入力してください")
 	private Integer age;
 	private String gender;
 	private String position;

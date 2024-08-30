@@ -10,10 +10,10 @@
     <header th:replace="~{common/header}">Header</header>
     <div class="container">
       <h2 class="title">機器詳細</h2>
+      <div class="container mx-auto" style="width: 400px">
       <div th:if="${message}" th:class="'message-container alert ' + ${alertType}">
       <span th:text="${message}"></span>
       </div>
-      <div class="container mx-auto" style="width: 400px">
         <div class="mb-3">
           資産番号:
           <span th:text="${device.serial_number}" class="me-3"></span>

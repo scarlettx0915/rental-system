@@ -6,13 +6,16 @@ import jakarta.validation.constraints.Size;
 public class DeviceForm {
 
 	@NotBlank(message = "資産番号を入力してください")
-    @Size(max = 10, message = "10文字以内入力してください")
+    @Size(max = 10, message = "資産番号は10文字以内入力してください")
 	private String serial_number;
+	@Size(max = 20, message = "メーカーは20文字以内入力してください")
 	private String maker;
+	@Size(max = 20, message = "OSは20文字以内入力してください")
 	private String operating_system;
 	private Integer memory;
 	private Integer capacity;
 	private boolean gpu;
+	@Size(max = 30, message = "保存場所は30文字以内入力してください")
 	private String location;
 	private boolean available;
 	private boolean malfunction;

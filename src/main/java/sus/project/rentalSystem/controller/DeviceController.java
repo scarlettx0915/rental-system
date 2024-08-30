@@ -3,6 +3,7 @@ package sus.project.rentalSystem.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,8 +44,11 @@ public class DeviceController {
 	}
 	
 	@GetMapping("/device_register")
-	public String device_register() {
-		return "device_register";
+	public String device_register(Model model) {
+		 if (!model.containsAttribute("deviceForm")) {
+		        model.addAttribute("deviceForm", new DeviceForm());
+		    }
+		 return "device_register";
 	}
 	
 	@GetMapping("/device_edit")
@@ -59,13 +63,14 @@ public class DeviceController {
 	
 	@PostMapping("addDevice")
 	public String addDevice(@Valid @ModelAttribute("deviceForm") DeviceForm deviceForm, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-		List<String> errorList = new ArrayList<String>();
 		if(result.hasErrors()) {
-            for (ObjectError error : result.getAllErrors()) {
-                errorList.add(error.getDefaultMessage());
-            }
-            model.addAttribute("validationError", errorList);
-			return "device_register";
+	        // Redirect to the form page
+			 List<String> errorList = result.getAllErrors().stream()
+                     .map(ObjectError::getDefaultMessage)
+                     .collect(Collectors.toList());
+			 redirectAttributes.addFlashAttribute("validationErrors", errorList);
+			 redirectAttributes.addFlashAttribute("deviceForm", deviceForm);
+			 return "redirect:device_register";
 		}
 		Optional<Device> device = deviceService.findById(deviceForm.getSerial_number());
 		if(device.isPresent()) {
@@ -93,7 +98,7 @@ public class DeviceController {
 	}
 	
 	@PostMapping("editDevice")
-	public String editDevice(@Valid @ModelAttribute DeviceForm deviceForm, BindingResult result) {
+	public String editDevice(@Valid @ModelAttribute DeviceForm deviceForm, BindingResult result, RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
 			System.out.println(result.getAllErrors());
 			return "redirect:device_list";
@@ -112,7 +117,9 @@ public class DeviceController {
 					deviceForm.getLease_end_date(), 
 					deviceForm.getInventory_date(), 
 					deviceForm.getInfo());
-			return("redirect:device_list");
+			redirectAttributes.addFlashAttribute("message", "機器を編集しました");
+			redirectAttributes.addFlashAttribute("alertType", "alert-success");
+			return("redirect:device_info?id="+deviceForm.getSerial_number());
 		}
 		return "redirect:device_list";
 	}
@@ -126,7 +133,7 @@ public class DeviceController {
 				//if in rental then refuse to delete
 				redirectAttributes.addFlashAttribute("message", "貸出中のため削除できません");
 				redirectAttributes.addFlashAttribute("alertType", "alert-danger");
-				return "redirect:/device_info?id=" + device.getSerial_number();
+				return "redirect:/device_info?id=" + serial_number;
 			}
 			deviceService.delete(serial_number);
 			redirectAttributes.addFlashAttribute("message", "機器を削除しました");
